@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Lehigh Valley Digital 📲 </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add this to hide menu and UI elements initially */
+        .navbar-menu, 
+        .mobile-menu,
+        .mobile-menu-btn,
+        .nav-contact-btn {
+            visibility: hidden;
+        }
+        
+        /* Only show elements once JS is loaded */
+        .js-loaded .navbar-menu,
+        .js-loaded .mobile-menu,
+        .js-loaded .mobile-menu-btn,
+        .js-loaded .nav-contact-btn {
+            visibility: visible;
+            /* Add smooth transition */
+            transition: visibility 0s, opacity 0.3s ease-in-out;
+        }
+
+        /* Add a dark background color to prevent white flash */
+        body {
+            background-color: #1a1a1a; /* Or whatever dark color matches your design */
+        }
+
+        .bottom-text {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 0.25rem 0;
+            color: #ffffff;
+            font-family: 'Glancyr', sans-serif;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Add this to prevent FOUC (Flash of Unstyled Content) */
+        html, body {
+            background-color: #1a1a1a !important;
+        }
+        .page-wrapper {
+            background: #000000 !important;
+            border-radius: 40px !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-text go-digital">GO <span class="digital-glitch">DIGITAL</span></div>
+        <div class="loading-text stay-visible">STAY VISIBLE</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <div class="gradient-bg"></div>
+        <div class="gradient-overlay"></div>
+        <div class="particles" id="particles"></div>
+     
+        <!-- Navbar -->
+        <header class="navbar">
+            <div class="navbar-logo">
+                <a href="/">
+                    <img src="assets/images/logo.png" alt="Lehigh Valley Digital Logo">
+                </a>
+            </div>
+            
+            <!-- Desktop Menu (Unchanged) -->
+            <ul class="navbar-menu">
+                <li><a href="#about">Philosophy</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#difference">The Difference</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faqs">FAQs</a></li>
+                <li><a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="nav-contact-btn" target="_blank">Book a Call</a></li>
+            </ul>
+
+            <!-- Mobile-only elements -->
+            <button class="mobile-menu-btn" aria-label="Toggle menu" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="mobile-menu">
+                <ul class="mobile-menu-items">
+                    <li><a href="#about">Philosophy</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#difference">The Difference</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faqs">FAQs</a></li>
+                    <li><a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="nav-contact-btn" target="_blank">Contact Us</a></li>
+                </ul>
+            </div>
+        </header>
+     
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>
+                GO DIGITAL<br>
+                <span>STAY VISIBLE</span>
+            </h1>
+            <p>Digital Solutions Every LV Business Can Afford</p>
+            <button onclick="scrollToSection('about')">Get Started</button>
+        </section>
+     
+        <!-- Philosophy Section -->
+        <section class="philosophy" id="about">
+            <div class="philosophy-top">
+                <div class="tag">Our Philosophy</div>
+                <div class="philosophy-content">
+                    <h2>Affordable Excellence</br>In The Digital Age</h2>
+                    <p>At Lehigh Valley Digital, we believe that creating a powerful online presence shouldn't come with an overwhelming price tag. Just as the cost of technology has fallen over time—from the first televisions to the smartphones in our pockets—the cost of professional websites and digital solutions has also plummeted. Unfortunately, many businesses are still being charged premium prices for outdated, template-based solutions that fail to meet modern demands. We're here to change that.</p>
+                </div>
+            </div>
+            
+            <div class="philosophy-bottom">
+                <div class="tag">The Falling Costs of Technology</div>
+                <h2>A Better Future For Businesses</h2>
+                <p>At Lehigh Valley Digital, we believe that creating a powerful online presence shouldn't come with an overwhelming price tag. Just as the cost of technology has fallen over time—from the first televisions to the smartphones in our pockets—the cost of professional websites and digital solutions has also plummeted. Unfortunately, many businesses are still being charged premium prices for outdated, template-based solutions that fail to meet modern demands. We're here to change that.</p>
+                <p>Despite this progress, many agencies still charge exorbitantly for template-based solutions. These mass-produced, one-size-fits-all websites are akin to paying luxury prices for a mass-market item—they lack customization, flexibility, and the ability to grow alongside your business. At Lehigh Valley Digital, we reject this outdated approach.</p>
+            </div>
+        </section>
+     
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="features-header">
+                <h2>Why Lehigh Valley Digital<br>Is The <span class="highlight">Right</span> Choice</h2>
+                <p>We're passionate about bringing the benefits of affordable, high-quality digital solutions to small businesses. Here's how we ensure our clients receive unparalleled value:</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">💻</div>
+                        <h3>Custom-Coded Excellence</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>Every website we build is meticulously custom-coded to reflect your brand identity and meet your specific needs. Unlike template solutions, you retain full ownership of your site, giving you the freedom to expand and adapt as your business grows.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">💎</div>
+                        <h3>Affordable Innovation</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>Just as flat-screen TVs and smartphones became more accessible over time, our innovative methodologies and efficient processes ensure you get premium-quality digital solutions at a fraction of the traditional cost.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">🚀</div>
+                        <h3>Scalable and Future-Proof</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>Your business is dynamic, and so should your website be. Our solutions are designed to grow with you, accommodating new features and functionality as your needs evolve. This future-proofing approach ensures your investment pays off for years to come.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">⚡</div>
+                        <h3>Lean and Efficient Operations</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>We run a streamlined, focused agency, avoiding unnecessary overhead like extravagant offices and oversized teams. This efficiency allows us to channel resources directly into delivering the best results for you, maximizing your return on investment.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">🤝</div>
+                        <h3>Client-Centric Partnerships</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>Your success is our mission. We take the time to understand your goals, ensuring every project is tailored to your needs. Our collaborative approach ensures your voice is heard at every step, resulting in solutions that truly reflect your vision.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-front">
+                        <div class="emoji">💡</div>
+                        <h3>Innovative by Design</h3>
+                    </div>
+                    <div class="feature-back">
+                        <p>Innovation drives everything we do. By staying on top of the latest technologies, trends, and best practices, we ensure your business remains competitive and ahead of the curve in an ever-changing digital landscape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+     
+        <!-- The Difference Section -->
+        <section class="difference" id="difference">
+            <div class="difference-content">
+                <div class="difference-layout">
+                    <div class="difference-left">
+                        <h2>Why Lehigh Valley</br>Digital Stands Out</h2>
+                        <p>In today's fast-paced digital world, your business deserves more than generic, overpriced solutions. At Lehigh Valley Digital, we bridge the gap between premium quality and affordability, delivering innovative custom digital solutions that empower your success and grow with your business. Here's why partnering with us sets you apart from the competition:</p>
+                    </div>
+                    <div class="difference-right">
+                        <div class="difference-boxes">
+                            <div class="difference-box">Websites Built Just For You</div>
+                            <div class="difference-box">Premium Quality, Affordable Prices</div>
+                            <div class="difference-box">Full Control of Your Assets</div>
+                            <div class="difference-box">Scalable Digital Solutions</div>
+                            <div class="difference-box">Collaborative Partnerships</div>
+                            <div class="difference-box">Innovation to Stay Ahead</div>
+                            <div class="difference-box">Empowering Your Future</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+     
+        <!-- Comparison Table Section -->
+        <section class="comparison">
+            <div class="table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Lehigh Valley Digital</th>
+                            <th>Traditional Agencies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ownership of Code</td>
+                            <td class="highlight">Yes</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing Transparency</td>
+                            <td class="highlight">Full Access & Reports</td>
+                            <td>Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Customization Level</td>
+                            <td class="highlight">Fully Custom-Coded</td>
+                            <td>Template-Based</td>
+                        </tr>
+                        <tr>
+                            <td>Scalability</td>
+                            <td class="highlight">Designed to Grow</td>
+                            <td>Limited Flexibility</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Efficiency</td>
+                            <td class="highlight">Streamlined and Affordable</td>
+                            <td>High Overhead Costs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+     
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2>What Our Clients Are Saying</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <h3>Working with Lehigh Valley Digital transformed our online presence completely.</h3>
+                    <p>Their innovative approach to web design and dedication to understanding our business needs exceeded our expectations. The custom solution they delivered not only looks stunning but has significantly improved our customer engagement and conversion rates.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Sarah Mitchell</h4>
+                            <span>Marketing Director, TechFlow Solutions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="prev-btn" aria-label="Previous testimonial">←</button>
+                    <button class="next-btn" aria-label="Next testimonial">→</button>
+                </div>
+            </div>
+        </section>
+     
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <div class="pricing-header">
+                <h2>Transparent Pricing<br>For Every Business</h2>
+                <p>Choose the package that best fits your needs. All prices include full code ownership and detailed documentation.</p>
+            </div>
+
+            <div class="pricing-tabs">
+                <button class="tab-btn active" data-tab="branding">Branding</button>
+                <button class="tab-btn" data-tab="websites">Websites</button>
+                <button class="tab-btn" data-tab="social">Social Media</button>
+            </div>
+
+            <div class="pricing-content">
+                <!-- Branding Packages -->
+                <div class="pricing-tab active" id="branding">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Basic Branding</h3>
+                                <div class="price">$99</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>One logo concept, One revision</li>
+                                <li>Basic Color Palette</li>
+                                <li>Typography Suggestion</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card popular">
+                            <div class="popular-tag">Most Popular</div>
+                            <div class="card-header">
+                                <h3>Standard Branding</h3>
+                                <div class="price">$499</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>Three logo concepts, Two revisions</li>
+                                <li>Comprehensive Color Palette</li>
+                                <li>Typography Selection</li>
+                                <li>Basic Brand Guidelines</li>
+                                <li>Custom Font Files</li>
+                                <li>Business Card and Letterhead</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Premium Branding</h3>
+                                <div class="price">$999</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>Five logo concepts, Five revisions</li>
+                                <li>Full Brand Book</li>
+                                <li>Brand Story and Positioning Strategy</li>
+                                <li>Marketing Materials Kit</li>
+                                <li>Custom Favicons & Weblcips</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Packages -->
+                <div class="pricing-tab" id="websites">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Basic Website</h3>
+                                <div class="price">$99<span>/mo</span></div>
+                                <div class="setup-fee">$75/mo</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>Custom Design</li>
+                                <li>Up to 1 Pages</li>
+                                <li>Responsive Design</li>
+                                <li>SEO Setup</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card popular">
+                            <div class="popular-tag">Most Popular</div>
+                            <div class="card-header">
+                                <h3>Standard Website</h3>
+                                <div class="price">$499<span></span></div>
+                                <div class="setup-fee">$99/mo</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>Advanced Layouts</li>
+                                <li>Up to 5 Pages</li>
+                                <li>Enhanced CMS</li>
+                                <li>SEO Optimization</li>
+                                <li>Basic E-commerce</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Premium Website</h3>
+                                <div class="price">$1999<span></span></div>
+                                <div class="setup-fee">$199/mo</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>Fully Custom Design</li>
+                                <li>Up to 10 Pages</li>
+                                <li>Advanced Interactivity</li>
+                                <li>Comprehensive SEO</li>
+                                <li>Advanced E-commerce</li>
+                                <li>CRM Integrations</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Packages -->
+                <div class="pricing-tab" id="social">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Basic Social</h3>
+                                <div class="price">$75<span>/mo</span></div>
+                                <div class="setup-fee"> $100 setup</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>1 Platform</li>
+                                <li>6 Posts/Month</li>
+                                <li>Basic Engagement</li>
+                                <li>Monthly Reporting</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card popular">
+                            <div class="popular-tag">Most Popular</div>
+                            <div class="card-header">
+                                <h3>Standard Social</h3>
+                                <div class="price">$399<span>/mo</span></div>
+                                <div class="setup-fee">$300 setup</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>4 Platforms</li>
+                                <li>16 Posts/Month</li>
+                                <li>Tailored Strategy</li>
+                                <li>Basic Ad Campaigns</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+
+                        <div class="pricing-card">
+                            <div class="card-header">
+                                <h3>Premium Social</h3>
+                                <div class="price">$699<span>/mo</span></div>
+                                <div class="setup-fee"> $500 setup</div>
+                            </div>
+                            <ul class="features-list">
+                                <li>6 Platforms</li>
+                                <li>50+ Posts/Month</li>
+                                <li>Paid Advertising</li>
+                                <li>Influencer Collaborations</li>
+                                <li>Custom Graphics/Videos</li>
+                            </ul>
+                            <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+     
+        <!-- FAQ Section -->
+        <section class="faq" id="faqs">
+            <div class="faq-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Answers to common questions about our services and expertise.</p>
+            </div>
+            
+            <div class="faq-container">
+                <!-- General Questions -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why should I choose Lehigh Valley Digital over other agencies?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>At Lehigh Valley Digital, we offer custom-coded websites and digital solutions that are tailored to your business needs at an affordable price. Unlike template-based agencies, we focus on scalable, future-proof solutions that grow with your business while delivering exceptional value. Additionally, every client is set up with their own GitHub account where they own all their code and have access to a comprehensive, easy-to-understand report that outlines every part of their code.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How are your prices so affordable without compromising quality?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We leverage mature technologies, streamlined processes, and a lean operational structure to keep costs low while maintaining high-quality standards. This means your investment goes directly into results, not overhead. Plus, with access to your GitHub repository and a detailed code report, you can see exactly what you're paying for—no hidden work or technical ambiguity.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What makes your approach innovative?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We stay ahead of the curve by adopting the latest tools, frameworks, and trends in the digital space. From advanced coding techniques to customized branding, we ensure your digital presence is modern, competitive, and effective. Our commitment to transparency, including the ability for clients to review and own their code, reflects our dedication to education and empowerment.</p>
+                    </div>
+                </div>
+
+                <!-- Branding Packages -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What does the Basic Branding Package include?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our Basic Branding Package is perfect for startups looking for a cost-effective solution. It includes one logo concept, one revision, and suggestions for a basic color palette and typography to kickstart your brand identity. For businesses that choose to integrate branding with a website, we also ensure seamless access to branding assets through your GitHub repository.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's the difference between the Standard and Premium Branding Packages?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The Standard Package offers more variety with three logo concepts, two revisions, a comprehensive color palette, typography, and basic brand guidelines. The Premium Package takes it further with five logo concepts, unlimited revisions, a full brand identity, marketing collateral, and a brand strategy consultation. For both, if branding elements are integrated into digital solutions, you'll have full access and control via your GitHub repository.</p>
+                    </div>
+                </div>
+
+                <!-- Website Packages -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's the advantage of choosing a custom-coded website?</span>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Custom-coded websites are uniquely designed to reflect your brand and meet your specific needs. Unlike template-based sites, you'll have full ownership and flexibility to expand or modify your site as your business evolves. Plus, every client is provided with their own GitHub account, where all your code is stored. Along with this, you'll receive a clear, non-technical report breaking down every part of your code, ensuring you understand exactly how your website works.</p>
+                    </div>
+                </div>
+
+                <!-- Continue with remaining FAQs... -->
+            </div>
+        </section>
+     
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <img src="assets/images/Handshake Icon.png" alt="Handshake Icon" class="contact-icon">
+            <h2>Tell Us about Your<br>Next Project</h2>
+            <div class="contact-buttons">
+                <a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="btn btn-primary" target="_blank">Book a Call</a>
+                <a href="mailto:hello@lvdigital.agency" class="btn btn-secondary">Email Us</a>
+            </div>
+        </section>
+
+        <!-- Copyright Section -->
+        <footer class="copyright">
+            <p><br><br><br><br>&copy; 2024 Lehigh Valley Digital. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Replace all script content with these script tags -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
