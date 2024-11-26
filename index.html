@@ -60,6 +60,165 @@
             border-radius: 40px !important;
             opacity: 1 !important;
         }
+
+        /* Hide the original comparison table on mobile */
+        @media (max-width: 768px) {
+            .comparison-table {
+                display: none;
+            }
+
+            /* Optional: Show a mobile-friendly alternative */
+            .comparison-mobile {
+                display: block;
+            }
+        }
+
+        /* Hide mobile version on desktop */
+        @media (min-width: 769px) {
+            .comparison-mobile {
+                display: none;
+            }
+        }
+
+        .difference {
+            background: #050505;
+            padding: 100px 5%;
+            color: white;
+            position: relative;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        .difference-container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .difference-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .difference-left {
+            position: sticky;
+            top: 100px;
+            max-width: 600px;
+        }
+
+        .difference-left h2 {
+            font-family: 'Glancyr', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+
+        .difference-left h2 .highlight {
+            color: #EC4524;
+        }
+
+        .difference-left p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            text-align: left;
+        }
+
+        .difference-boxes {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .difference-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: clamp(30px, 4vw, 45px);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .difference-box[data-aos].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .difference-box:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .difference {
+                padding: 80px 5%;
+            }
+            
+            .difference-layout {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .difference-layout {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .difference-left {
+                position: relative;
+                top: 0;
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .difference-left p {
+                text-align: center;
+                margin: 0 auto;
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .difference {
+                padding: 60px 5%;
+            }
+
+            .difference-box {
+                padding: 25px 20px;
+                min-height: 80px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .difference {
+                padding: 40px 5%;
+            }
+
+            .difference-left h2 {
+                font-size: 2rem;
+            }
+
+            .difference-box {
+                padding: 20px 15px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -124,19 +283,60 @@
      
         <!-- Philosophy Section -->
         <section class="philosophy" id="about">
-            <div class="philosophy-top">
+            <div class="philosophy-header">
                 <div class="tag">Our Philosophy</div>
-                <div class="philosophy-content">
-                    <h2>Affordable Excellence</br>In The Digital Age</h2>
-                    <p>At Lehigh Valley Digital, we believe that creating a powerful online presence shouldn't come with an overwhelming price tag. Just as the cost of technology has fallen over time—from the first televisions to the smartphones in our pockets—the cost of professional websites and digital solutions has also plummeted. Unfortunately, many businesses are still being charged premium prices for outdated, template-based solutions that fail to meet modern demands. We're here to change that.</p>
-                </div>
+                <h2>Affordable Excellence</br>In The Digital Age</h2>
             </div>
             
-            <div class="philosophy-bottom">
-                <div class="tag">The Falling Costs of Technology</div>
-                <h2>A Better Future For Businesses</h2>
-                <p>At Lehigh Valley Digital, we believe that creating a powerful online presence shouldn't come with an overwhelming price tag. Just as the cost of technology has fallen over time—from the first televisions to the smartphones in our pockets—the cost of professional websites and digital solutions has also plummeted. Unfortunately, many businesses are still being charged premium prices for outdated, template-based solutions that fail to meet modern demands. We're here to change that.</p>
-                <p>Despite this progress, many agencies still charge exorbitantly for template-based solutions. These mass-produced, one-size-fits-all websites are akin to paying luxury prices for a mass-market item—they lack customization, flexibility, and the ability to grow alongside your business. At Lehigh Valley Digital, we reject this outdated approach.</p>
+            <div class="philosophy-cards">
+                <div class="philosophy-card">
+                    <div class="card-icon">📱</div>
+                    <h3>Technology Evolution</h3>
+                    <p>Just as smartphones became accessible to everyone, we're making premium digital solutions available to all businesses.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Fair Pricing</h3>
+                    <p>We reject the industry's inflated pricing, offering custom-coded solutions at template-based prices.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Future Ready</h3>
+                    <p>Your digital presence should grow with your business, not hold it back. We build scalable solutions that evolve.</p>
+                </div>
+            </div>
+
+            <div class="philosophy-timeline">
+                <div class="timeline-item">
+                    <div class="year">1950s</div>
+                    <div class="item-content">
+                        <span class="tech-item">TV: $5,000</span>
+                        <div class="price-tag">≈ $50,000 today</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1980s</div>
+                    <div class="item-content">
+                        <span class="tech-item">Computer: $3,000</span>
+                        <div class="price-tag">≈ $10,000 today</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2000s</div>
+                    <div class="item-content">
+                        <span class="tech-item">Smartphone: $700</span>
+                        <div class="price-tag">≈ $1,000 today</div>
+                    </div>
+                </div>
+                <div class="timeline-item active">
+                    <div class="year">Today</div>
+                    <div class="item-content">
+                        <span class="tech-item">Digital Solutions</span>
+                        <div class="price-tag">Finally Affordable</div>
+                    </div>
+                </div>
             </div>
         </section>
      
@@ -207,68 +407,41 @@
      
         <!-- The Difference Section -->
         <section class="difference" id="difference">
-            <div class="difference-content">
+            <div class="difference-container">
                 <div class="difference-layout">
                     <div class="difference-left">
-                        <h2>Why Lehigh Valley</br>Digital Stands Out</h2>
-                        <p>In today's fast-paced digital world, your business deserves more than generic, overpriced solutions. At Lehigh Valley Digital, we bridge the gap between premium quality and affordability, delivering innovative custom digital solutions that empower your success and grow with your business. Here's why partnering with us sets you apart from the competition:</p>
+                        <h2>Why Lehigh Valley</br>Digital <span class="highlight">Stands Out</span></h2>
+                        <p>In today's fast-paced digital world, your business deserves more than generic, overpriced solutions. At Lehigh Valley Digital, we bridge the gap between premium quality and affordability, delivering innovative custom digital solutions that empower your success and grow with your business.</p>
                     </div>
                     <div class="difference-right">
                         <div class="difference-boxes">
-                            <div class="difference-box">Websites Built Just For You</div>
-                            <div class="difference-box">Premium Quality, Affordable Prices</div>
-                            <div class="difference-box">Full Control of Your Assets</div>
-                            <div class="difference-box">Scalable Digital Solutions</div>
-                            <div class="difference-box">Collaborative Partnerships</div>
-                            <div class="difference-box">Innovation to Stay Ahead</div>
-                            <div class="difference-box">Empowering Your Future</div>
+                            <div class="difference-box" data-aos="fade-up">Digital Assets Built Just For You</div>
+                            <div class="difference-box" data-aos="fade-up">Premium Quality, Affordable Prices</div>
+                            <div class="difference-box" data-aos="fade-up">Full Control of Your Assets</div>
+                            <div class="difference-box" data-aos="fade-up">Scalable Digital Solutions</div>
+                            <div class="difference-box" data-aos="fade-up">Collaborative Partnerships</div>
+                            <div class="difference-box" data-aos="fade-up">Innovation to Stay Ahead</div>
+                            <div class="difference-box" data-aos="fade-up">Keeping Your Company Future-Proof</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
      
-        <!-- Comparison Table Section -->
-        <section class="comparison">
-            <div class="table-container">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Lehigh Valley Digital</th>
-                            <th>Traditional Agencies</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ownership of Code</td>
-                            <td class="highlight">Yes</td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td>Pricing Transparency</td>
-                            <td class="highlight">Full Access & Reports</td>
-                            <td>Limited</td>
-                        </tr>
-                        <tr>
-                            <td>Customization Level</td>
-                            <td class="highlight">Fully Custom-Coded</td>
-                            <td>Template-Based</td>
-                        </tr>
-                        <tr>
-                            <td>Scalability</td>
-                            <td class="highlight">Designed to Grow</td>
-                            <td>Limited Flexibility</td>
-                        </tr>
-                        <tr>
-                            <td>Cost Efficiency</td>
-                            <td class="highlight">Streamlined and Affordable</td>
-                            <td>High Overhead Costs</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+        <!-- Mobile comparison version -->
+        <div class="comparison-mobile">
+            <div class="comparison-card">
+                <h3>Why Choose Lehigh Valley Digital?</h3>
+                <ul class="comparison-list">
+                    <li>✓ Full Code Ownership</li>
+                    <li>✓ Complete Access & Reports</li>
+                    <li>✓ Custom-Coded Solutions</li>
+                    <li>✓ Designed for Growth</li>
+                    <li>✓ Affordable Pricing</li>
+                </ul>
             </div>
-        </section>
+        </div>
      
         <!-- Testimonials Section -->
         <section class="testimonials">
@@ -362,7 +535,7 @@
                         <div class="pricing-card">
                             <div class="card-header">
                                 <h3>Basic Website</h3>
-                                <div class="price">$99<span>/mo</span></div>
+                                <div class="price">$99<span></span></div>
                                 <div class="setup-fee">$75/mo</div>
                             </div>
                             <ul class="features-list">

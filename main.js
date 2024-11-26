@@ -140,116 +140,28 @@ checkScroll();
 
 // Initialize all DOM-dependent functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Difference boxes animation
     const boxes = document.querySelectorAll('.difference-box');
+    
     function checkBoxes() {
-        const triggerBottom = window.innerHeight * 0.8;
+        const triggerBottom = window.innerHeight * 0.85;
+        
         boxes.forEach((box, index) => {
             const boxTop = box.getBoundingClientRect().top;
+            
             if (boxTop < triggerBottom) {
                 setTimeout(() => {
-                    box.classList.add('visible');
+                    box.style.opacity = '1';
+                    box.style.transform = 'translateX(0)';
                 }, index * 200);
             }
         });
     }
-    checkBoxes();
+
+    // Run on scroll
     window.addEventListener('scroll', checkBoxes);
-
-    // Difference section observer
-    const differenceSection = document.querySelector('.difference');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                const boxes = entry.target.querySelectorAll('.difference-box');
-                boxes.forEach(box => box.classList.remove('visible'));
-            }
-        });
-    }, { threshold: 0 });
-    observer.observe(differenceSection);
-
-    // Testimonials
-    const testimonials = [
-        {
-            quote: "Working with Lehigh Valley Digital transformed our online presence completely.",
-            text: "Their innovative approach to web design and dedication to understanding our business needs exceeded our expectations. The custom solution they delivered not only looks stunning but has significantly improved our customer engagement and conversion rates.",
-            author: "Sarah Mitchell",
-            position: "Marketing Director, TechFlow Solutions"
-        },
-        {
-            quote: "The level of customization and attention to detail is unmatched.",
-            text: "What sets Lehigh Valley Digital apart is their ability to translate our vision into a powerful digital solution. Their team's expertise and commitment to excellence have made them an invaluable partner in our digital journey.",
-            author: "Michael Anderson",
-            position: "CEO, Innovation Labs"
-        },
-        {
-            quote: "Finally, a digital partner that delivers real value.",
-            text: "From the initial consultation to the final launch, Lehigh Valley Digital demonstrated exceptional professionalism and technical expertise. They've created a website that perfectly represents our brand and drives results.",
-            author: "Jennifer Roberts",
-            position: "Operations Manager, NextGen Solutions"
-        }
-    ];
-
-    let currentIndex = 0;
-    const card = document.querySelector('.testimonial-card');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    let autoSlideInterval;
-
-    function updateTestimonial(index) {
-        card.style.opacity = '0';
-        setTimeout(() => {
-            card.innerHTML = `
-                <div class="quote-mark">"</div>
-                <h3>${testimonials[index].quote}</h3>
-                <p>${testimonials[index].text}</p>
-                <div class="testimonial-author">
-                    <div class="author-info">
-                        <h4>${testimonials[index].author}</h4>
-                        <span>${testimonials[index].position}</span>
-                    </div>
-                </div>
-            `;
-            card.style.opacity = '1';
-        }, 300);
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % testimonials.length;
-        updateTestimonial(currentIndex);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
-        updateTestimonial(currentIndex);
-    }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-
-    if (prevBtn && nextBtn && card) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            stopAutoSlide();
-            startAutoSlide();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            stopAutoSlide();
-            startAutoSlide();
-        });
-
-        card.addEventListener('mouseenter', stopAutoSlide);
-        card.addEventListener('mouseleave', startAutoSlide);
-        card.style.transition = 'opacity 0.3s ease';
-        startAutoSlide();
-    }
+    
+    // Initial check
+    checkBoxes();
 
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
@@ -366,11 +278,82 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Add viewport height fix for mobile browsers
+// Update the mobile viewport height handler
 function setMobileVH() {
+    // Get the viewport height
     let vh = window.innerHeight * 0.01;
+    // Set the value in the --vh custom property
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Force hero section height
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.height = `${window.innerHeight}px`;
+    }
 }
 
-window.addEventListener('resize', setMobileVH);
-setMobileVH(); 
+// Add event listeners with a small delay for iOS
+window.addEventListener('DOMContentLoaded', () => {
+    setMobileVH();
+    // Run again after a short delay to handle iOS Safari
+    setTimeout(setMobileVH, 100);
+});
+
+window.addEventListener('resize', () => {
+    setMobileVH();
+    // Run again after a short delay to handle iOS Safari
+    setTimeout(setMobileVH, 100);
+});
+
+window.addEventListener('orientationchange', () => {
+    // Wait for orientation change to finish
+    setTimeout(setMobileVH, 200);
+});
+
+// Add scroll lock on page load for mobile
+if (window.innerWidth <= 768) {
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+    document.documentElement.style.height = '100vh';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const boxes = document.querySelectorAll('.difference-box');
+    
+    function checkBoxes() {
+        const triggerBottom = window.innerHeight * 0.85;
+        
+        boxes.forEach((box, index) => {
+            const boxTop = box.getBoundingClientRect().top;
+            
+            if (boxTop < triggerBottom) {
+                setTimeout(() => {
+                    box.style.opacity = '1';
+                    box.style.transform = 'translateX(0)';
+                }, index * 200);
+            }
+        });
+    }
+
+    // Run on scroll
+    window.addEventListener('scroll', checkBoxes);
+    
+    // Initial check
+    checkBoxes();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const features = document.querySelectorAll('.feature');
+    
+    features.forEach(feature => {
+        feature.addEventListener('click', function() {
+            // Remove active class from all other features
+            features.forEach(f => {
+                if (f !== feature) f.classList.remove('active');
+            });
+            
+            // Toggle active class on clicked feature
+            this.classList.toggle('active');
+        });
+    });
+});
