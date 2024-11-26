@@ -142,26 +142,19 @@ checkScroll();
 document.addEventListener('DOMContentLoaded', function() {
     const boxes = document.querySelectorAll('.difference-box');
     
-    function checkBoxes() {
-        const triggerBottom = window.innerHeight * 0.85;
-        
-        boxes.forEach((box, index) => {
-            const boxTop = box.getBoundingClientRect().top;
-            
-            if (boxTop < triggerBottom) {
+    const boxObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
                 setTimeout(() => {
-                    box.style.opacity = '1';
-                    box.style.transform = 'translateX(0)';
-                }, index * 200);
+                    entry.target.classList.add('visible');
+                }, index * 100);
             }
         });
-    }
-
-    // Run on scroll
-    window.addEventListener('scroll', checkBoxes);
+    }, {
+        threshold: 0.2
+    });
     
-    // Initial check
-    checkBoxes();
+    boxes.forEach(box => boxObserver.observe(box));
 
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
@@ -320,26 +313,19 @@ if (window.innerWidth <= 768) {
 document.addEventListener('DOMContentLoaded', function() {
     const boxes = document.querySelectorAll('.difference-box');
     
-    function checkBoxes() {
-        const triggerBottom = window.innerHeight * 0.85;
-        
-        boxes.forEach((box, index) => {
-            const boxTop = box.getBoundingClientRect().top;
-            
-            if (boxTop < triggerBottom) {
+    const boxObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
                 setTimeout(() => {
-                    box.style.opacity = '1';
-                    box.style.transform = 'translateX(0)';
-                }, index * 200);
+                    entry.target.classList.add('visible');
+                }, index * 100);
             }
         });
-    }
-
-    // Run on scroll
-    window.addEventListener('scroll', checkBoxes);
+    }, {
+        threshold: 0.2
+    });
     
-    // Initial check
-    checkBoxes();
+    boxes.forEach(box => boxObserver.observe(box));
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -357,3 +343,180 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.feature-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 200);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    cards.forEach(card => {
+        // Observe for scroll animations
+        observer.observe(card);
+        
+        // Add hover effects
+        card.addEventListener('mouseover', () => {
+            card.style.backgroundColor = 'rgba(236, 69, 36, 0.1)'; // Your orange brand color with opacity
+            card.style.borderColor = 'rgba(236, 69, 36, 0.3)';
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseout', () => {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; // Original background
+            card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            card.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add a staggered delay for each card
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 200); // 200ms delay between each card
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px'
+    });
+    
+    featureCards.forEach(card => cardObserver.observe(card));
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const difference = document.getElementById('difference');
+    const cards = document.querySelectorAll('.feature-card');
+    
+    // Add mouse movement effect
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+            
+            // Calculate rotation based on mouse position
+            const rotateX = (y - rect.height / 2) / 20;
+            const rotateY = (rect.width / 2 - x) / 20;
+            
+            card.style.transform = `
+                perspective(1000px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                translateZ(10px)
+            `;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        });
+    });
+
+    // Scroll effect
+    let lastScrollTop = 0;
+    const scrollThreshold = window.innerHeight * 2; // Adjust this value to control scroll length
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const sectionTop = difference.offsetTop;
+        const scrollProgress = (scrollTop - sectionTop) / scrollThreshold;
+        
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            cards.forEach((card, index) => {
+                const delay = index * 0.1;
+                const scale = Math.max(0.8, 1 - (scrollProgress - delay));
+                const opacity = Math.max(0, 1 - (scrollProgress - delay));
+                const translateY = Math.min(100, scrollProgress * 100);
+                
+                card.style.transform = `
+                    scale(${scale})
+                    translateY(${translateY}px)
+                `;
+                card.style.opacity = opacity;
+            });
+        } else {
+            // Scrolling up
+            cards.forEach((card, index) => {
+                const delay = index * 0.1;
+                const scale = Math.min(1, scrollProgress + delay);
+                const opacity = Math.min(1, scrollProgress + delay);
+                const translateY = Math.max(0, (1 - scrollProgress) * 100);
+                
+                card.style.transform = `
+                    scale(${scale})
+                    translateY(${translateY}px)
+                `;
+                card.style.opacity = opacity;
+            });
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Pause animations on hover for better UX
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.animationPlayState = 'paused';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.animationPlayState = 'running';
+        });
+    });
+});
+
+// Improve mobile viewport handling
+function setMobileVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Force recalculation on orientation change
+    setTimeout(() => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, 100);
+}
+
+// Add more robust event listeners
+window.addEventListener('load', setMobileVH);
+window.addEventListener('resize', setMobileVH);
+window.addEventListener('orientationchange', () => {
+    setTimeout(setMobileVH, 200);
+});
+
+// Optimize particle effect for different devices
+function optimizeParticles() {
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const particleCount = isMobile() ? 
+        (devicePixelRatio > 2 ? 30 : 50) : 
+        (devicePixelRatio > 2 ? 100 : 200);
+    
+    // Update particle array length
+    particles.length = particleCount;
+}
+
+// Call optimization on load and resize
+window.addEventListener('load', optimizeParticles);
+window.addEventListener('resize', optimizeParticles);

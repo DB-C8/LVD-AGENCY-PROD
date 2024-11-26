@@ -140,7 +140,7 @@ button:hover {
 .hero {
     position: relative;
     z-index: 3;
-    min-height: 100vh;
+    min-height: calc(100 * var(--vh));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,6 +150,8 @@ button:hover {
     text-align: center;
     background: transparent;
     margin: 0;
+    padding-top: calc(20px + var(--safe-area-inset-top));
+    padding-bottom: calc(20px + var(--safe-area-inset-bottom));
 }
 
 .hero h1 {
@@ -457,6 +459,7 @@ color: white;
     margin-bottom: 40px;  /* Increased spacing between headings */
     background: linear-gradient(45deg, #050505, #333);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -560,7 +563,7 @@ color: white;
 .philosophy-timeline::before {
     content: '';
     position: absolute;
-    top: 85px; /* Adjusted to be below the year boxes */
+    top: 85px;
     left: 0;
     right: 0;
     height: 2px;
@@ -576,7 +579,7 @@ color: white;
     z-index: 2;
     text-align: center;
     flex: 1;
-    padding: 0 20px;
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -653,6 +656,13 @@ color: white;
     margin-bottom: 10px;
 }
 
+.timeline-item:nth-child(4) .tech-item::before {
+    content: '🌐';
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
 .timeline-item:last-child .tech-item::before {
     content: '🚀';
     display: block;
@@ -691,89 +701,149 @@ color: white;
     }
 }
 
-/* The Difference Section Styles */
-.difference {
-    position: relative;
-    min-height: 150vh;
-    padding: 100px 10%;
+/* The Difference Section */
+#difference {
     background: #050505;
+    min-height: 100vh;
     color: white;
+    position: relative;
+    z-index: 3;
     overflow: hidden;
 }
 
-.difference-layout {
+.difference-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section-title {
+    font-family: 'Glancyr', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.feature-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    perspective: 1000px;
     position: relative;
 }
 
-.difference-left {
-    position: sticky;
-    top: 100px;
-    height: fit-content;
-    max-width: 500px;
-    padding-right: 20px;
-}
-
-.difference-left h2 {
-    font-family: 'Glancyr', sans-serif;
-    font-size: clamp(3rem, 5vw, 4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 40px;
-    letter-spacing: -0.02em;
-}
-
-.difference-left p {
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    font-size: 0.9rem;
-}
-
-.difference-boxes {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding-top: 40px;
-    margin-left: auto;
-    width: 100%;
-}
-
-.difference-box {
-    opacity: 0;
-    transform: translateX(50px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    will-change: transform, opacity;
+.feature-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: clamp(30px, 4vw, 40px);
     border-radius: 20px;
-    padding: clamp(30px, 4vw, 45px);
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    font-family: 'Satoshi', sans-serif;
-    font-weight: 500;
     text-align: center;
-    width: 100%;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
 }
 
-@media (max-width: 992px) {
-    .difference-layout {
+/* Add gradient background effect */
+.feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, center) var(--mouse-y, center),
+        rgba(236, 69, 36, 0.15),
+        transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.feature-card:hover::after {
+    opacity: 1;
+}
+
+.feature-card h3 {
+    font-family: 'Satoshi', sans-serif;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover h3 {
+    transform: scale(1.05);
+    color: rgba(236, 69, 36, 0.9);
+}
+
+.feature-card p {
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.feature-card:hover p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered animation for cards */
+.feature-card:nth-child(1) { animation-delay: 0.3s; }
+.feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #difference {
+        padding: 80px 5%;
+    }
+    
+    .feature-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #difference {
+        padding: 60px 5%;
+    }
+    
+    .feature-cards {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 20px;
     }
-
-    .difference-left {
-        position: relative;
-        top: 0;
-        text-align: center;
-        max-width: 100%;
-        padding-right: 0;
-        margin: 0 auto;
-    }
-
-    .difference-boxes {
-        padding-top: 20px;
-        margin: 0 auto;
+    
+    .feature-card {
+        padding: 30px 20px;
     }
 }
 
@@ -2426,6 +2496,223 @@ h2 span.highlight {
 
     .feature-front, .feature-back {
         padding: 20px;
+    }
+}
+
+.difference-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.difference-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    font-size: 1.2rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    min-height: 100px; /* Ensure consistent height */
+}
+
+.difference-box.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.difference-box:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .difference-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .difference-left {
+        position: relative; /* Remove sticky on mobile */
+        top: 0;
+    }
+    
+    .difference-right {
+        padding-top: 0;
+    }
+    
+    .difference-box {
+        padding: 20px;
+        font-size: 1rem;
+        min-height: 80px;
+    }
+}
+
+/* Add CSS Variables for consistent spacing */
+:root {
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --vh: 1vh;
+}
+
+/* Update hero height calculation */
+.hero {
+    min-height: calc(100 * var(--vh));
+    padding-top: calc(20px + var(--safe-area-inset-top));
+    padding-bottom: calc(20px + var(--safe-area-inset-bottom));
+}
+
+/* Add support for foldable devices */
+@media (spanning: single-fold-vertical) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Add better touch targets for mobile */
+@media (hover: none) {
+    .tab-btn,
+    .pricing-btn,
+    .feature,
+    .navbar-menu a {
+        min-height: 44px;
+        padding: 12px 24px;
+    }
+}
+
+/* Improve text readability on high-DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Add specific iPad adjustments */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pricing-card {
+        padding: 30px;
+    }
+}
+
+/* Add support for ultra-wide screens */
+@media (min-width: 2000px) {
+    .container {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .hero h1 {
+        font-size: 6rem;
+    }
+}
+
+.tech-stack {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+    padding: 1.5rem;
+}
+
+.tech-category {
+    flex: 1;
+}
+
+.tech-category h4 {
+    color: #EC4524;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.tech-category ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tech-category li {
+    background: #EC4524;
+    padding: 0.8rem 1.6rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tech-category li:hover {
+    background: #f45634;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tech-stack {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.2rem;
+    }
+
+    .tech-category ul {
+        gap: 0.7rem;
+    }
+
+    .tech-category li {
+        font-size: 0.95rem;
+        padding: 0.7rem 1.4rem;
+    }
+}
+
+.tech-category ul li {
+    background-color: #EC4524;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tech-category ul li:hover {
+    background-color: #d13d1f;
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tech-stack {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.2rem;
+    }
+
+    .tech-category ul {
+        gap: 0.7rem;
+    }
+
+    .tech-category ul li {
+        padding: 10px 24px;
+        font-size: 0.85rem;
     }
 }
 

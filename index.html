@@ -3,7 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
-    <meta name="theme-color" content="#000000">
+    
+    <!-- Standard Favicons -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/32x32.svg" sizes="any">
+    <link rel="icon" type="image/png" href="assets/favicon/16x16@2x.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="assets/favicon/32x32@2x.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="assets/favicon/48x48@2x.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="assets/favicon/64x64@2x.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="assets/favicon/96x96@2x.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="assets/favicon/128x128@2x.png" sizes="128x128">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/Webclips/120x120@2x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/Webclips/152x152@2x.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/Webclips/167x167@2x.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/Webclips/180x180@2x.png">
+
+    <!-- PWA / Mobile Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="assets/Webclips/192x192@2x.png">
+    <link rel="icon" sizes="512x512" href="assets/Webclips/512x512@2x.png">
+
+    <!-- Safari Pinned Tab Icon -->
+    <link rel="mask-icon" href="assets/favicon/32x32.svg" color="#EC4524">
+
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#EC4524">
+    <meta name="msapplication-TileImage" content="assets/Webclips/144x144@2x.png">
+
+    <!-- Other Meta Tags -->
+    <meta name="theme-color" content="#EC4524">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Lehigh Valley Digital 📲 </title>
@@ -146,20 +176,84 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            will-change: transform;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        .difference-box[data-aos].aos-animate {
-            opacity: 1;
-            transform: translateY(0);
+        .difference-box:before,
+        .difference-box:after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
         }
 
-        .difference-box:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+        .difference-box:before {
+            background: linear-gradient(135deg, 
+                rgba(236, 69, 36, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(236, 69, 36, 0.1) 100%
+            );
+            transform: translateX(-100%) rotate(-45deg);
+        }
+
+        .difference-box:after {
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(236, 69, 36, 0.1) 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            transform: translateX(100%) rotate(45deg);
+        }
+
+        @media (hover: hover) {
+            .difference-box:hover {
+                transform: translateY(-5px) scale(1.02);
+                border-color: rgba(236, 69, 36, 0.4);
+                box-shadow: 0 10px 30px -10px rgba(236, 69, 36, 0.3);
+            }
+
+            .difference-box:hover:before,
+            .difference-box:hover:after {
+                opacity: 1;
+                transform: translateX(0) rotate(0);
+            }
+
+            .difference-box:hover span {
+                transform: scale(1.05);
+                text-shadow: 0 0 20px rgba(236, 69, 36, 0.3);
+            }
+        }
+
+        /* Active state for touch devices */
+        @media (hover: none) {
+            .difference-box:active {
+                transform: translateY(-2px) scale(1.01);
+                border-color: rgba(236, 69, 36, 0.4);
+            }
+
+            .difference-box:active:before,
+            .difference-box:active:after {
+                opacity: 1;
+                transform: translateX(0) rotate(0);
+            }
+        }
+
+        .difference-box span {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
         }
 
         /* Responsive Breakpoints */
@@ -217,6 +311,52 @@
             .difference-box {
                 padding: 20px 15px;
                 font-size: 1rem;
+            }
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .tech-category {
+            flex: 1;
+        }
+
+        .tech-category h4 {
+            color: #EC4524;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tech-category ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-category li {
+            background: rgba(236, 69, 36, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .tech-category li:hover {
+            background: rgba(236, 69, 36, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .tech-stack {
+                flex-direction: column;
+                gap: 1.5rem;
             }
         }
     </style>
@@ -280,7 +420,7 @@
             <p>Digital Solutions Every LV Business Can Afford</p>
             <button onclick="scrollToSection('about')">Get Started</button>
         </section>
-     
+        <div class="section-transition"></div>
         <!-- Philosophy Section -->
         <section class="philosophy" id="about">
             <div class="philosophy-header">
@@ -310,24 +450,31 @@
 
             <div class="philosophy-timeline">
                 <div class="timeline-item">
-                    <div class="year">1950s</div>
+                    <div class="year">1940s</div>
                     <div class="item-content">
-                        <span class="tech-item">TV: $5,000</span>
-                        <div class="price-tag">≈ $50,000 today</div>
+                        <span class="tech-item">TV: <br>$4,000</span>
+                        <div class="price-tag">≈ $500 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="year">1980s</div>
                     <div class="item-content">
-                        <span class="tech-item">Computer: $3,000</span>
-                        <div class="price-tag">≈ $10,000 today</div>
+                        <span class="tech-item">Computer: <br> $9000</span>
+                        <div class="price-tag">≈ $600 Now</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1990s</div>
+                    <div class="item-content">
+                        <span class="tech-item">Smartphone: $4000</span>
+                        <div class="price-tag">≈ $700 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="year">2000s</div>
                     <div class="item-content">
-                        <span class="tech-item">Smartphone: $700</span>
-                        <div class="price-tag">≈ $1,000 today</div>
+                        <span class="tech-item">Website: <br>$400,000</span>
+                        <div class="price-tag">≈ $75,000 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item active">
@@ -410,18 +557,16 @@
             <div class="difference-container">
                 <div class="difference-layout">
                     <div class="difference-left">
-                        <h2>Why Lehigh Valley</br>Digital <span class="highlight">Stands Out</span></h2>
-                        <p>In today's fast-paced digital world, your business deserves more than generic, overpriced solutions. At Lehigh Valley Digital, we bridge the gap between premium quality and affordability, delivering innovative custom digital solutions that empower your success and grow with your business.</p>
+                        <h2>The <span class="highlight">Difference</span><br>That Drives Results</h2>
+                        <p>Discover how our innovative approach and commitment to excellence create unmatched value for your business. We combine cutting-edge technology with proven strategies to deliver solutions that truly stand out.</p>
                     </div>
                     <div class="difference-right">
                         <div class="difference-boxes">
-                            <div class="difference-box" data-aos="fade-up">Digital Assets Built Just For You</div>
-                            <div class="difference-box" data-aos="fade-up">Premium Quality, Affordable Prices</div>
-                            <div class="difference-box" data-aos="fade-up">Full Control of Your Assets</div>
-                            <div class="difference-box" data-aos="fade-up">Scalable Digital Solutions</div>
-                            <div class="difference-box" data-aos="fade-up">Collaborative Partnerships</div>
-                            <div class="difference-box" data-aos="fade-up">Innovation to Stay Ahead</div>
-                            <div class="difference-box" data-aos="fade-up">Keeping Your Company Future-Proof</div>
+                            <div class="difference-box">Custom Solutions That Scale</div>
+                            <div class="difference-box">Transparent Code Ownership</div>
+                            <div class="difference-box">Affordable Premium Quality</div>
+                            <div class="difference-box">Future-Proof Technology</div>
+                            <div class="difference-box">Local Support & Expertise</div>
                         </div>
                     </div>
                 </div>
@@ -679,21 +824,48 @@
                 <!-- Branding Packages -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>What does the Basic Branding Package include?</span>
+                        <span>How do you handle website maintaince and updates?</span>
                         <div class="faq-icon">+</div>
                     </div>
                     <div class="faq-answer">
-                        <p>Our Basic Branding Package is perfect for startups looking for a cost-effective solution. It includes one logo concept, one revision, and suggestions for a basic color palette and typography to kickstart your brand identity. For businesses that choose to integrate branding with a website, we also ensure seamless access to branding assets through your GitHub repository.</p>
+                        <p>We offer comprehensive maintenance packages that include regular updates, security patches, performance optimization, and content updates. Our team monitors your site 24/7 for any issues and proactively addresses them. We also provide monthly reports detailing your website's performance and any maintenance performed.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>What's the difference between the Standard and Premium Branding Packages?</span>
+                        <span>What technologies does Lehigh Valley Digital use?</span>
                         <div class="faq-icon">+</div>
                     </div>
                     <div class="faq-answer">
-                        <p>The Standard Package offers more variety with three logo concepts, two revisions, a comprehensive color palette, typography, and basic brand guidelines. The Premium Package takes it further with five logo concepts, unlimited revisions, a full brand identity, marketing collateral, and a brand strategy consultation. For both, if branding elements are integrated into digital solutions, you'll have full access and control via your GitHub repository.</p>
+                        <div class="tech-stack">
+                            <div class="tech-category">
+                                <h4>Frontend</h4>
+                                <ul>
+                                    <li>React</li>
+                                    <li>Vue.js</li>
+                                    <li>Angular</li>
+                                    <li>Next.js</li>
+                                    <li>TypeScript</li>
+                                    <li>Tailwind CSS</li>
+                                    <li>Bootstrap</li>
+                                    <li>Svelte</li>
+                                    <li>Webflow</li>
+                                </ul>
+                            </div>
+                            <div class="tech-category">
+                                <h4>Backend</h4>
+                                <ul>
+                                    <li>Node.js</li>
+                                    <li>Express.js</li>
+                                    <li>Python</li>
+                                    <li>Django</li>
+                                    <li>PHP</li>
+                                    <li>Java</li>
+                                    <li>Ruby on Rails</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
