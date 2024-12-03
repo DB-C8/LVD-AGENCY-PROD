@@ -55,46 +55,91 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get all tab elements
     const tabBtns = document.querySelectorAll('.tab-btn');
     const pricingTabs = document.querySelectorAll('.pricing-tab');
+    const pricingSection = document.querySelector('.pricing-section');
 
-    // Hide all tabs initially
-    pricingTabs.forEach(tab => {
-        tab.style.display = 'none';
-        tab.classList.remove('active');
-    });
+    function initializePricingSection() {
+        // Hide all tabs initially
+        pricingTabs.forEach(tab => {
+            tab.style.opacity = '0';
+            tab.style.display = 'none';
+            tab.classList.remove('active');
+        });
 
-    // Show default tab (websites) and activate its button
-    const defaultTab = document.getElementById('websites');
-    const defaultBtn = document.querySelector('[data-tab="websites"]');
-    if (defaultTab) {
-        defaultTab.style.display = 'block';
-        defaultTab.classList.add('active');
+        // Show default tab (websites) and activate its button
+        const defaultTab = document.getElementById('websites');
+        const defaultBtn = document.querySelector('[data-tab="websites"]');
+        if (defaultTab) {
+            defaultTab.style.display = 'block';
+            defaultTab.style.opacity = '1';
+            defaultTab.classList.add('active');
+        }
+        if (defaultBtn) {
+            defaultBtn.classList.add('active');
+        }
+
+        // Force layout recalculation
+        if (pricingSection) {
+            void pricingSection.offsetHeight;
+        }
     }
-    if (defaultBtn) {
-        defaultBtn.classList.add('active');
+
+    // Initialize on load
+    initializePricingSection();
+
+    // Handle tab switching with proper spacing
+    function switchTab(tabId) {
+        // Hide all tabs with fade
+        pricingTabs.forEach(tab => {
+            tab.style.opacity = '0';
+            setTimeout(() => {
+                tab.style.display = 'none';
+                tab.classList.remove('active');
+            }, 300);
+        });
+
+        // Show selected tab with fade
+        const selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            setTimeout(() => {
+                selectedTab.style.display = 'block';
+                selectedTab.classList.add('active');
+                // Force reflow
+                void selectedTab.offsetHeight;
+                selectedTab.style.opacity = '1';
+            }, 300);
+        }
+
+        // Force layout recalculation
+        void pricingSection.offsetHeight;
     }
 
     // Add click handlers to tab buttons
     tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all buttons and hide all tabs
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
             tabBtns.forEach(b => b.classList.remove('active'));
-            pricingTabs.forEach(tab => {
-                tab.style.display = 'none';
-                tab.classList.remove('active');
-            });
-
             // Add active class to clicked button
-            btn.classList.add('active');
-            
-            // Show selected tab
-            const selectedTab = document.getElementById(btn.dataset.tab);
-            if (selectedTab) {
-                selectedTab.style.display = 'block';
-                selectedTab.classList.add('active');
-            }
+            this.classList.add('active');
+            // Switch tab with animation
+            switchTab(this.dataset.tab);
         });
     });
 });
+
+// Handle refresh and back/forward navigation
+window.addEventListener('pageshow', function(event) {
+    const pricingSection = document.querySelector('.pricing-section');
+    if (pricingSection) {
+        // Force layout recalculation
+        void pricingSection.offsetHeight;
+        
+        // Additional delay to ensure proper rendering
+        setTimeout(() => {
+            void pricingSection.offsetHeight;
+        }, 100);
+    }
+});
+
 function scrollToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
