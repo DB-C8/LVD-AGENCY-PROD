@@ -359,6 +359,51 @@
                 gap: 1.5rem;
             }
         }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #EC4524;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .price .original {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .price .new {
+            color: #EC4524;
+        }
+
+        /* Tab Buttons */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid #EC4524;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .tab-btn.active {
+            background: #EC4524;
+            color: white;
+            border: 1px solid #EC4524;
+        }
     </style>
 </head>
 <body>
@@ -406,19 +451,18 @@
                     <li><a href="#difference">The Difference</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#faqs">FAQs</a></li>
-                    <li><a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="nav-contact-btn" target="_blank">Contact Us</a></li>
+                    <li><a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="nav-contact-btn" target="_blank">Book a Call</a></li>
                 </ul>
             </div>
         </header>
      
         <!-- Hero Section -->
         <section class="hero">
-            <h1>
-                GO DIGITAL<br>
-                <span>STAY VISIBLE</span>
-            </h1>
-            <p>Digital Solutions Every LV Business Can Afford</p>
-            <button onclick="scrollToSection('about')">Get Started</button>
+            <div class="hero-content">
+                <h1>GO DIGITAL<br>STAY VISIBLE</h1>
+                <p>Digital Solutions Every LV Business Can Afford</p>
+                <button onclick="scrollToSection('contact')">Get Started</button>
+            </div>
         </section>
         <div class="section-transition"></div>
         <!-- Philosophy Section -->
@@ -617,10 +661,11 @@
                 <p>Choose the package that best fits your needs. All prices include full code ownership and detailed documentation.</p>
             </div>
 
-            <div class="pricing-tabs">
+            <!-- Tab Buttons -->
+            <div class="tab-buttons">
                 <button class="tab-btn active" data-tab="branding">Branding</button>
                 <button class="tab-btn" data-tab="websites">Websites</button>
-                <button class="tab-btn" data-tab="social">Social Media</button>
+                <button class="tab-btn" data-tab="new-websites">Social Media</button>
             </div>
 
             <div class="pricing-content">
@@ -629,8 +674,11 @@
                     <div class="pricing-grid">
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Basic Branding</h3>
-                                <div class="price">$99</div>
+                                <h3>Basic</h3>
+                                <div class="price">
+                                    <div class="original">$199</div>
+                                    <div class="new">$99</div>
+                                </div>
                             </div>
                             <ul class="features-list">
                                 <li>One logo concept, One revision</li>
@@ -643,8 +691,11 @@
                         <div class="pricing-card popular">
                             <div class="popular-tag">Most Popular</div>
                             <div class="card-header">
-                                <h3>Standard Branding</h3>
-                                <div class="price">$499</div>
+                                <h3>Standard</h3>
+                                <div class="price">
+                                    <div class="original">$799</div>
+                                    <div class="new">$499</div>
+                                </div>
                             </div>
                             <ul class="features-list">
                                 <li>Three logo concepts, Two revisions</li>
@@ -659,15 +710,18 @@
 
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Premium Branding</h3>
-                                <div class="price">$999</div>
+                                <h3>Premium</h3>
+                                <div class="price">
+                                    <div class="original">$1,499</div>
+                                    <div class="new">$999</div>
+                                </div>
                             </div>
                             <ul class="features-list">
                                 <li>Five logo concepts, Five revisions</li>
                                 <li>Full Brand Book</li>
                                 <li>Brand Story and Positioning Strategy</li>
                                 <li>Marketing Materials Kit</li>
-                                <li>Custom Favicons & Weblcips</li>
+                                <li>Custom Favicons & Webclips</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -679,13 +733,16 @@
                     <div class="pricing-grid">
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Basic Website</h3>
-                                <div class="price">$99<span></span></div>
+                                <h3>Basic</h3>
+                                <div class="price">
+                                    <div class="original">$999</div>
+                                    <div class="new">$99</div>
+                                </div>
                                 <div class="setup-fee">$75/mo</div>
                             </div>
                             <ul class="features-list">
                                 <li>Custom Design</li>
-                                <li>Up to 1 Pages</li>
+                                <li>Up to 1 Page</li>
                                 <li>Responsive Design</li>
                                 <li>SEO Setup</li>
                             </ul>
@@ -695,8 +752,11 @@
                         <div class="pricing-card popular">
                             <div class="popular-tag">Most Popular</div>
                             <div class="card-header">
-                                <h3>Standard Website</h3>
-                                <div class="price">$499<span></span></div>
+                                <h3>Standard</h3>
+                                <div class="price">
+                                    <span class="original">$2,999</span>
+                                    <span class="new">$499</span>
+                                </div>
                                 <div class="setup-fee">$99/mo</div>
                             </div>
                             <ul class="features-list">
@@ -711,8 +771,11 @@
 
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Premium Website</h3>
-                                <div class="price">$1999<span></span></div>
+                                <h3>Premium</h3>
+                                <div class="price">
+                                    <span class="original">$4,999</span>
+                                    <span class="new">$1,999</span>
+                                </div>
                                 <div class="setup-fee">$199/mo</div>
                             </div>
                             <ul class="features-list">
@@ -728,20 +791,23 @@
                     </div>
                 </div>
 
-                <!-- Social Media Packages -->
-                <div class="pricing-tab" id="social">
+                <!-- Social Media Section -->
+                <div class="pricing-tab" id="new-websites" style="display: none;">
                     <div class="pricing-grid">
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Basic Social</h3>
-                                <div class="price">$75<span>/mo</span></div>
-                                <div class="setup-fee"> $100 setup</div>
+                                <h3>Basic </h3>
+                                <div class="price">
+                                    <div class="original">$999</div>
+                                    <div class="new">$99</div>
+                                </div>
+                                <div class="setup-fee">$75/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>1 Platform</li>
-                                <li>6 Posts/Month</li>
-                                <li>Basic Engagement</li>
-                                <li>Monthly Reporting</li>
+                                <li>Custom Design</li>
+                                <li>Up to 1 Page</li>
+                                <li>Responsive Design</li>
+                                <li>SEO Setup</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -749,31 +815,39 @@
                         <div class="pricing-card popular">
                             <div class="popular-tag">Most Popular</div>
                             <div class="card-header">
-                                <h3>Standard Social</h3>
-                                <div class="price">$399<span>/mo</span></div>
-                                <div class="setup-fee">$300 setup</div>
+                                <h3>Standard</h3>
+                                <div class="price">
+                                    <div class="original">$2,999</div>
+                                    <div class="new">$499</div>
+                                </div>
+                                <div class="setup-fee">$99/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>4 Platforms</li>
-                                <li>16 Posts/Month</li>
-                                <li>Tailored Strategy</li>
-                                <li>Basic Ad Campaigns</li>
+                                <li>Advanced Layouts</li>
+                                <li>Up to 5 Pages</li>
+                                <li>Enhanced CMS</li>
+                                <li>SEO Optimization</li>
+                                <li>Basic E-commerce</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
 
                         <div class="pricing-card">
                             <div class="card-header">
-                                <h3>Premium Social</h3>
-                                <div class="price">$699<span>/mo</span></div>
-                                <div class="setup-fee"> $500 setup</div>
+                                <h3>Premium</h3>
+                                <div class="price">
+                                    <div class="original">$4,999</div>
+                                    <div class="new">$1,999</div>
+                                </div>
+                                <div class="setup-fee">$199/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>6 Platforms</li>
-                                <li>50+ Posts/Month</li>
-                                <li>Paid Advertising</li>
-                                <li>Influencer Collaborations</li>
-                                <li>Custom Graphics/Videos</li>
+                                <li>Fully Custom Design</li>
+                                <li>Up to 10 Pages</li>
+                                <li>Advanced Interactivity</li>
+                                <li>Comprehensive SEO</li>
+                                <li>Advanced E-commerce</li>
+                                <li>CRM Integrations</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -901,7 +975,7 @@
     </div>
 
     <!-- Replace all script content with these script tags -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous" defer></script>
+    <script src="main.js" defer></script>
 </body>
 </html>

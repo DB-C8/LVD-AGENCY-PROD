@@ -1,3 +1,18 @@
+// Debounce function to limit the rate of function calls
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+// Add this at the beginning of your main.js file
+function setMobileVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
 document.addEventListener('DOMContentLoaded', handlePageLoad);
 
 function handlePageLoad() {
@@ -6,29 +21,30 @@ function handlePageLoad() {
     
     // Check if this is a page refresh
     if (performance.navigation.type === 1 || sessionStorage.getItem('hasLoaded')) {
-        // This is a refresh or subsequent visit in the same session
         if (loadingScreen) {
             loadingScreen.style.display = 'none';
+            document.documentElement.style.visibility = 'visible';
         }
         if (pageWrapper) {
             pageWrapper.style.opacity = '1';
         }
-        document.documentElement.style.visibility = 'visible';
     } else {
-        // This is the first load
         if (loadingScreen && pageWrapper) {
-            // Show loading screen
             loadingScreen.style.display = 'flex';
+            // Force a reflow to ensure animations work
+            void loadingScreen.offsetWidth;
+            
             setTimeout(() => {
                 loadingScreen.style.opacity = '0';
                 loadingScreen.style.transition = 'opacity 0.5s ease';
+                document.documentElement.style.visibility = 'visible';
+                pageWrapper.style.opacity = '1';
                 
                 setTimeout(() => {
                     loadingScreen.remove();
                 }, 500);
             }, 3000);
         }
-        // Set session flag
         sessionStorage.setItem('hasLoaded', 'true');
     }
 }
@@ -36,23 +52,49 @@ function handlePageLoad() {
 document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('js-loaded');
 
-    // Pricing tabs functionality
+    // Get all tab elements
     const tabBtns = document.querySelectorAll('.tab-btn');
     const pricingTabs = document.querySelectorAll('.pricing-tab');
 
+    // Hide all tabs initially
+    pricingTabs.forEach(tab => {
+        tab.style.display = 'none';
+        tab.classList.remove('active');
+    });
+
+    // Show default tab (websites) and activate its button
+    const defaultTab = document.getElementById('websites');
+    const defaultBtn = document.querySelector('[data-tab="websites"]');
+    if (defaultTab) {
+        defaultTab.style.display = 'block';
+        defaultTab.classList.add('active');
+    }
+    if (defaultBtn) {
+        defaultBtn.classList.add('active');
+    }
+
+    // Add click handlers to tab buttons
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all buttons and tabs
+            // Remove active class from all buttons and hide all tabs
             tabBtns.forEach(b => b.classList.remove('active'));
-            pricingTabs.forEach(tab => tab.classList.remove('active'));
+            pricingTabs.forEach(tab => {
+                tab.style.display = 'none';
+                tab.classList.remove('active');
+            });
 
-            // Add active class to clicked button and corresponding tab
+            // Add active class to clicked button
             btn.classList.add('active');
-            document.getElementById(btn.dataset.tab).classList.add('active');
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(btn.dataset.tab);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+                selectedTab.classList.add('active');
+            }
         });
     });
 });
-
 function scrollToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
@@ -68,14 +110,12 @@ function resizeCanvas() {
 }
 
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize", debounce(resizeCanvas, 100));
 
-// Enhanced Mobile Detection and Optimization
 function isMobile() {
     return window.innerWidth <= 768;
 }
 
-// Adjust particle count for mobile
 const particleCount = isMobile() ? 50 : 200;
 const particles = Array.from({ length: particleCount }, () => ({
     x: Math.random() * canvas.width,
@@ -135,10 +175,9 @@ function checkScroll() {
     });
 }
 
-window.addEventListener('scroll', checkScroll);
+window.addEventListener('scroll', debounce(checkScroll, 100));
 checkScroll();
 
-// Initialize all DOM-dependent functionality
 document.addEventListener('DOMContentLoaded', function() {
     const boxes = document.querySelectorAll('.difference-box');
     
@@ -156,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     boxes.forEach(box => boxObserver.observe(box));
 
-    // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
@@ -171,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Mobile menu functionality
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mobileMenu = document.querySelector('.mobile-menu');
     const body = document.body;
@@ -195,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Feature touch interactions
     const features = document.querySelectorAll('.feature');
     features.forEach(feature => {
         feature.addEventListener('touchstart', function(e) {
@@ -212,8 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Window resize handler
-window.addEventListener('resize', function() {
+window.addEventListener('resize', debounce(function() {
     if (window.innerWidth > 768) {
         document.querySelector('.mobile-menu').style.display = 'none';
         document.querySelector('.mobile-menu-btn').style.display = 'none';
@@ -221,17 +256,14 @@ window.addEventListener('resize', function() {
     } else {
         document.querySelector('.mobile-menu-btn').style.display = 'block';
     }
-});
+}, 100));
 
-// Optimize animations for mobile
-window.addEventListener('resize', () => {
+window.addEventListener('resize', debounce(() => {
     if (isMobile()) {
-        // Reduce animation complexity
         particles.length = Math.min(particles.length, 50);
     }
-});
+}, 100));
 
-// Improve touch handling
 document.addEventListener('touchstart', function(e) {
     if (e.target.closest('.feature')) {
         e.preventDefault();
@@ -240,9 +272,7 @@ document.addEventListener('touchstart', function(e) {
     }
 }, { passive: false });
 
-// Add touch event handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Improve mobile menu behavior
     const mobileMenu = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('.navbar-menu');
     
@@ -251,7 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.classList.toggle('active');
     });
     
-    // Improve feature card interactions on mobile
     const features = document.querySelectorAll('.feature');
     features.forEach(feature => {
         feature.addEventListener('touchstart', function(e) {
@@ -264,259 +293,127 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Adjust particle effect for mobile
     if (window.innerWidth <= 375) {
-        particleCount = 30; // Reduce particles for better performance
-        particleSpeed = 0.5; // Slow down particles
+        particleCount = 30;
+        particleSpeed = 0.5;
     }
 });
 
-// Update the mobile viewport height handler
-function setMobileVH() {
-    // Get the viewport height
-    let vh = window.innerHeight * 0.01;
-    // Set the value in the --vh custom property
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    // Force hero section height
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.height = `${window.innerHeight}px`;
-    }
-}
+// Run on page load
+setMobileVH();
 
-// Add event listeners with a small delay for iOS
-window.addEventListener('DOMContentLoaded', () => {
-    setMobileVH();
-    // Run again after a short delay to handle iOS Safari
-    setTimeout(setMobileVH, 100);
-});
+// Run on resize
+window.addEventListener('resize', debounce(setMobileVH, 100));
 
-window.addEventListener('resize', () => {
-    setMobileVH();
-    // Run again after a short delay to handle iOS Safari
-    setTimeout(setMobileVH, 100);
-});
-
+// Run on orientation change
 window.addEventListener('orientationchange', () => {
-    // Wait for orientation change to finish
-    setTimeout(setMobileVH, 200);
+    setTimeout(setMobileVH, 100);
 });
 
-// Add scroll lock on page load for mobile
-if (window.innerWidth <= 768) {
-    document.body.style.overflow = 'hidden';
-    document.body.style.height = '100vh';
-    document.documentElement.style.height = '100vh';
+// Remove or update the showSection function since we're using data attributes now
+// If you need to keep it for backward compatibility:
+function showSection(sectionId) {
+    const btn = document.querySelector(`[data-tab="${sectionId}"]`);
+    if (btn) {
+        btn.click();
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const boxes = document.querySelectorAll('.difference-box');
-    
-    const boxObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, index * 100);
-            }
-        });
-    }, {
-        threshold: 0.2
+document.querySelectorAll('.feature').forEach(feature => {
+    feature.addEventListener('click', () => {
+        // Check if we're on mobile
+        if (window.innerWidth <= 768) {
+            // Remove active class from all other features
+            document.querySelectorAll('.feature').forEach(f => {
+                if (f !== feature) f.classList.remove('active');
+            });
+            // Toggle active class on clicked feature
+            feature.classList.toggle('active');
+        }
     });
-    
-    boxes.forEach(box => boxObserver.observe(box));
 });
 
+// Add smooth transition for pricing tabs on mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const pricingTabs = document.querySelectorAll('.pricing-tab');
+
+    function switchTab(tabId) {
+        // Hide all tabs
+        pricingTabs.forEach(tab => {
+            tab.style.opacity = '0';
+            setTimeout(() => {
+                tab.style.display = 'none';
+            }, 300);
+        });
+
+        // Show selected tab
+        const selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            setTimeout(() => {
+                selectedTab.style.display = 'block';
+                // Force reflow
+                void selectedTab.offsetWidth;
+                selectedTab.style.opacity = '1';
+            }, 300);
+        }
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            tabBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            // Switch tab with animation
+            switchTab(this.dataset.tab);
+        });
+    });
+});
+
+// Feature section mobile interactions
 document.addEventListener('DOMContentLoaded', function() {
     const features = document.querySelectorAll('.feature');
     
+    // Handle mobile touch interactions
     features.forEach(feature => {
-        feature.addEventListener('click', function() {
-            // Remove active class from all other features
+        feature.addEventListener('touchstart', function(e) {
+            // Prevent default only if needed
+            if (!e.target.closest('a, button')) {
+                e.preventDefault();
+            }
+            
+            // Remove active state from other features
             features.forEach(f => {
-                if (f !== feature) f.classList.remove('active');
+                if (f !== this) f.classList.remove('active');
             });
             
-            // Toggle active class on clicked feature
+            // Toggle active state on touched feature
             this.classList.toggle('active');
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.feature-card');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, index * 200);
-            }
-        });
-    }, {
-        threshold: 0.2
-    });
-
-    cards.forEach(card => {
-        // Observe for scroll animations
-        observer.observe(card);
-        
-        // Add hover effects
-        card.addEventListener('mouseover', () => {
-            card.style.backgroundColor = 'rgba(236, 69, 36, 0.1)'; // Your orange brand color with opacity
-            card.style.borderColor = 'rgba(236, 69, 36, 0.3)';
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-
-        card.addEventListener('mouseout', () => {
-            card.style.backgroundColor = 'rgba(255, 255, 255, 0.03)'; // Original background
-            card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-            card.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const featureCards = document.querySelectorAll('.feature-card');
-    
-    const cardObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                // Add a staggered delay for each card
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, index * 200); // 200ms delay between each card
-            }
-        });
-    }, {
-        threshold: 0.2,
-        rootMargin: '0px'
+        }, { passive: false });
     });
     
-    featureCards.forEach(card => cardObserver.observe(card));
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const difference = document.getElementById('difference');
-    const cards = document.querySelectorAll('.feature-card');
-    
-    // Add mouse movement effect
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-            
-            // Calculate rotation based on mouse position
-            const rotateX = (y - rect.height / 2) / 20;
-            const rotateY = (rect.width / 2 - x) / 20;
-            
-            card.style.transform = `
-                perspective(1000px)
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-                translateZ(10px)
-            `;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
-    });
-
-    // Scroll effect
-    let lastScrollTop = 0;
-    const scrollThreshold = window.innerHeight * 2; // Adjust this value to control scroll length
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const sectionTop = difference.offsetTop;
-        const scrollProgress = (scrollTop - sectionTop) / scrollThreshold;
-        
-        if (scrollTop > lastScrollTop) {
-            // Scrolling down
-            cards.forEach((card, index) => {
-                const delay = index * 0.1;
-                const scale = Math.max(0.8, 1 - (scrollProgress - delay));
-                const opacity = Math.max(0, 1 - (scrollProgress - delay));
-                const translateY = Math.min(100, scrollProgress * 100);
-                
-                card.style.transform = `
-                    scale(${scale})
-                    translateY(${translateY}px)
-                `;
-                card.style.opacity = opacity;
-            });
-        } else {
-            // Scrolling up
-            cards.forEach((card, index) => {
-                const delay = index * 0.1;
-                const scale = Math.min(1, scrollProgress + delay);
-                const opacity = Math.min(1, scrollProgress + delay);
-                const translateY = Math.max(0, (1 - scrollProgress) * 100);
-                
-                card.style.transform = `
-                    scale(${scale})
-                    translateY(${translateY}px)
-                `;
-                card.style.opacity = opacity;
+    // Remove active state when touching outside features
+    document.addEventListener('touchstart', function(e) {
+        if (!e.target.closest('.feature')) {
+            features.forEach(feature => {
+                feature.classList.remove('active');
             });
         }
-        
-        lastScrollTop = scrollTop;
+    });
+    
+    // Handle resize events
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // Reset any mobile-specific states on resize
+            if (window.innerWidth > 768) {
+                features.forEach(feature => {
+                    feature.classList.remove('active');
+                });
+            }
+        }, 250);
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Pause animations on hover for better UX
-    const featureCards = document.querySelectorAll('.feature-card');
-    
-    featureCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.animationPlayState = 'paused';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.animationPlayState = 'running';
-        });
-    });
-});
-
-// Improve mobile viewport handling
-function setMobileVH() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    // Force recalculation on orientation change
-    setTimeout(() => {
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }, 100);
-}
-
-// Add more robust event listeners
-window.addEventListener('load', setMobileVH);
-window.addEventListener('resize', setMobileVH);
-window.addEventListener('orientationchange', () => {
-    setTimeout(setMobileVH, 200);
-});
-
-// Optimize particle effect for different devices
-function optimizeParticles() {
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    const particleCount = isMobile() ? 
-        (devicePixelRatio > 2 ? 30 : 50) : 
-        (devicePixelRatio > 2 ? 100 : 200);
-    
-    // Update particle array length
-    particles.length = particleCount;
-}
-
-// Call optimization on load and resize
-window.addEventListener('load', optimizeParticles);
-window.addEventListener('resize', optimizeParticles);
