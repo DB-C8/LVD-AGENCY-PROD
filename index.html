@@ -38,7 +38,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Lehigh Valley Digital 📲 </title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="preload" href="https://ka-f.fontawesome.com/releases/v6.5.1/css/free.min.css" as="style">
+    <link href="https://ka-f.fontawesome.com/releases/v6.5.1/css/free.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Add this to hide menu and UI elements initially */
@@ -404,7 +405,40 @@
             color: white;
             border: 1px solid #EC4524;
         }
+
+        /* Add content-visibility to improve performance */
+        .features,
+        .philosophy,
+        .difference,
+        .testimonials,
+        .pricing,
+        .faq {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 5000px;
+        }
+
+        /* Optimize animations for performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Improve color contrast for accessibility */
+        .price .original {
+            color: rgba(255, 255, 255, 0.5); /* Increased from 0.3 */
+        }
+
+        .features-list li {
+            color: rgba(255, 255, 255, 0.9); /* Increased from 0.8 */
+        }
     </style>
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="assets/fonts/Glancyr-Light.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Glancyr-Medium.otf" as="font" type="font/otf" crossorigin>
 </head>
 <body>
     <div class="loading-screen">

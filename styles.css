@@ -1581,7 +1581,7 @@ html {
 
 .price .original {
     font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.5); /* Increased from 0.3 */
     text-decoration: line-through;
     position: relative;
     font-weight: 400;
@@ -1659,7 +1659,7 @@ html {
 .features-list li {
     padding: 10px 0;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9); /* Increased from 0.8 */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -2978,6 +2978,27 @@ h2 span.highlight {
     .mobile-menu-items .features-link,
     .navbar-menu a[href="#features"] {
         display: none;
+    }
+}
+
+/* Add content-visibility to improve performance */
+.features,
+.philosophy,
+.difference,
+.testimonials,
+.pricing,
+.faq {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
+}
+
+/* Optimize animations for performance */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 
