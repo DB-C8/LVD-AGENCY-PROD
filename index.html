@@ -36,7 +36,8 @@
     <meta name="theme-color" content="#EC4524">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Lehigh Valley Digital 📲 </title>
+    <title>Lehigh Valley Digital</title>
+    <meta name="description" content="Lehigh Valley Digital provides affordable, custom-coded websites and digital solutions for LV businesses. Get premium quality at template-based prices with full code ownership.">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="preload" href="https://ka-f.fontawesome.com/releases/v6.5.1/css/free.min.css" as="style">
     <link href="https://ka-f.fontawesome.com/releases/v6.5.1/css/free.min.css" rel="stylesheet">
@@ -441,6 +442,26 @@
     <link rel="preload" href="assets/fonts/Glancyr-Medium.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="assets/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/Satoshi-Medium.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Add preload for critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+    
+    <!-- Add preload for critical JavaScript -->
+    <link rel="preload" href="main.js" as="script">
+    <link rel="preload" href="styles.min.css" as="style">
+    <link rel="preload" href="assets/fonts/Glancyr-Light.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:image" content="assets/opengraph/Frame 5185.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lehigh Valley Digital 📲">
+    <meta property="og:description" content="Lehigh Valley Digital provides affordable, custom-coded websites and digital solutions for LV businesses. Get premium quality at template-based prices with full code ownership.">
+    <meta property="og:url" content="https://lvdigital.agency">
+    <meta property="og:site_name" content="Lehigh Valley Digital">
 </head>
 <body>
     <div class="loading-screen">
@@ -459,7 +480,7 @@
         <header class="navbar">
             <div class="navbar-logo">
                 <a href="/">
-                    <img src="assets/images/logo.png" alt="Lehigh Valley Digital Logo">
+                    <img src="assets/images/logo.png" alt="Lehigh Valley Digital Logo" width="120" height="40">
                 </a>
             </div>
             
@@ -497,14 +518,14 @@
             <div class="hero-content">
                 <h1>GO DIGITAL<br>STAY VISIBLE</h1>
                 <p>Digital Solutions Every LV Business Can Afford</p>
-                <button onclick="scrollToSection('contact')">Get Started</button>
+                <button onclick="scrollToSection('about')">Get Started</button>
             </div>
         </section>
         <div class="section-transition"></div>
         <!-- Philosophy Section -->
         <section class="philosophy" id="about">
             <div class="philosophy-header">
-                <div class="tag">Our Philosophy</div>
+                <div class="tag"></div>
                 <h2>Affordable Excellence</br>In The Digital Age</h2>
             </div>
             
@@ -512,7 +533,7 @@
                 <div class="philosophy-card">
                     <div class="card-icon">📱</div>
                     <h3>Technology Evolution</h3>
-                    <p>Just as smartphones became accessible to everyone, we're making premium digital solutions available to all businesses.</p>
+                    <p>Just as cell phones became accessible to everyone, we're making premium digital solutions available to all businesses.</p>
                 </div>
                 
                 <div class="philosophy-card">
@@ -532,28 +553,28 @@
                 <div class="timeline-item">
                     <div class="year">1940s</div>
                     <div class="item-content">
-                        <span class="tech-item">TV: <br>$4,000</span>
+                        <span class="tech-item">TVs: <br>$4,000</span>
                         <div class="price-tag">≈ $500 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="year">1980s</div>
                     <div class="item-content">
-                        <span class="tech-item">Computer: <br> $9000</span>
+                        <span class="tech-item">Computers: <br> $9000</span>
                         <div class="price-tag">≈ $600 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="year">1990s</div>
                     <div class="item-content">
-                        <span class="tech-item">Smartphone: $4000</span>
+                        <span class="tech-item">Cell Phones: $4000</span>
                         <div class="price-tag">≈ $700 Now</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="year">2000s</div>
                     <div class="item-content">
-                        <span class="tech-item">Website: <br>$400,000</span>
+                        <span class="tech-item">Apps: <br>$400,000</span>
                         <div class="price-tag">≈ $75,000 Now</div>
                     </div>
                 </div>
@@ -712,14 +733,18 @@
                             <div class="card-header">
                                 <h3>Basic</h3>
                                 <div class="price">
-                                    <div class="original">$199</div>
-                                    <div class="new">$99</div>
+                                    <div class="original" data-save="SAVE 60%">$499</div>
+                                    <div class="new">$199</div>
                                 </div>
                             </div>
                             <ul class="features-list">
-                                <li>One logo concept, One revision</li>
-                                <li>Basic Color Palette</li>
-                                <li>Typography Suggestion</li>
+                                <li>✨ Three Logo Concepts</li>
+                                <li>✨ Two Revisions</li>
+                                <li>✨ Brand Color Palette</li>
+                                <li>✨ Typography Selection</li>
+                                <li>✨ Basic Brand Guidelines</li>
+                                <li>✨ Source Files Included</li>
+                                <li>✨ Social Media Kit</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -728,17 +753,21 @@
                             <div class="card-header">
                                 <h3>Standard</h3>
                                 <div class="price">
-                                    <div class="original">$799</div>
-                                    <div class="new">$499</div>
+                                    <div class="original" data-save="SAVE 70%">$1,499</div>
+                                    <div class="new">$699</div>
                                 </div>
                             </div>
                             <ul class="features-list">
-                                <li>Three logo concepts, Two revisions</li>
-                                <li>Comprehensive Color Palette</li>
-                                <li>Typography Selection</li>
-                                <li>Basic Brand Guidelines</li>
-                                <li>Custom Font Files</li>
-                                <li>Business Card and Letterhead</li>
+                                <li>✨ Five Logo Concepts</li>
+                                <li>✨ Unlimited Revisions</li>
+                                <li>✨ Complete Brand Identity</li>
+                                <li>✨ Custom Typography</li>
+                                <li>✨ Comprehensive Guidelines</li>
+                                <li>✨ Business Card Design</li>
+                                <li>✨ Letterhead Design</li>
+                                <li>✨ Social Media Kit</li>
+                                <li>✨ Email Signature</li>
+                                <li>✨ Source Files Included</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -747,16 +776,21 @@
                             <div class="card-header">
                                 <h3>Premium</h3>
                                 <div class="price">
-                                    <div class="original">$1,499</div>
-                                    <div class="new">$999</div>
+                                    <div class="original" data-save="SAVE 80%">$2,999</div>
+                                    <div class="new">$1,499</div>
                                 </div>
                             </div>
                             <ul class="features-list">
-                                <li>Five logo concepts, Five revisions</li>
-                                <li>Full Brand Book</li>
-                                <li>Brand Story and Positioning Strategy</li>
-                                <li>Marketing Materials Kit</li>
-                                <li>Custom Favicons & Webclips</li>
+                                <li>✨ Everything in Standard, plus:</li>
+                                <li>✨ Brand Strategy Session</li>
+                                <li>✨ Market Research Report</li>
+                                <li>✨ Brand Voice Guidelines</li>
+                                <li>✨ Custom Icon Set</li>
+                                <li>✨ Marketing Collateral</li>
+                                <li>✨ Presentation Template</li>
+                                <li>✨ Brand Style Guide</li>
+                                <li>✨ 1-Year Brand Support</li>
+                                <li>✨ Priority Service</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -770,16 +804,22 @@
                             <div class="card-header">
                                 <h3>Basic</h3>
                                 <div class="price">
-                                    <div class="original">$999</div>
-                                    <div class="new">$99</div>
+                                    <div class="original" data-save="SAVE 75%">$1,999</div>
+                                    <div class="new">$499</div>
                                 </div>
-                                <div class="setup-fee">$75/mo</div>
+                                <div class="setup-fee">$49/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Custom Design</li>
-                                <li>Up to 1 Page</li>
-                                <li>Responsive Design</li>
-                                <li>SEO Setup</li>
+                                <li>✨ Custom Design</li>
+                                <li>✨ Up to 5 Pages</li>
+                                <li>✨ Mobile Responsive</li>
+                                <li>✨ Basic SEO Setup</li>
+                                <li>✨ Contact Form</li>
+                                <li>✨ Social Media Integration</li>
+                                <li>✨ Google Analytics</li>
+                                <li>✨ Basic Security Features</li>
+                                <li>✨ 2 Rounds of Revisions</li>
+                                <li>✨ Training Session</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -788,17 +828,22 @@
                             <div class="card-header">
                                 <h3>Standard</h3>
                                 <div class="price">
-                                    <span class="original">$2,999</span>
-                                    <span class="new">$499</span>
+                                    <div class="original" data-save="SAVE 80%">$3,999</div>
+                                    <div class="new">$999</div>
                                 </div>
-                                <div class="setup-fee">$99/mo</div>
+                                <div class="setup-fee">$79/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Advanced Layouts</li>
-                                <li>Up to 5 Pages</li>
-                                <li>Enhanced CMS</li>
-                                <li>SEO Optimization</li>
-                                <li>Basic E-commerce</li>
+                                <li>✨ Everything in Basic, plus:</li>
+                                <li>✨ Up to 10 Pages</li>
+                                <li>✨ Advanced SEO Package</li>
+                                <li>✨ Content Management System</li>
+                                <li>✨ Blog Integration</li>
+                                <li>✨ E-commerce (up to 50 products)</li>
+                                <li>✨ Custom Animations</li>
+                                <li>✨ Premium Security Suite</li>
+                                <li>✨ Unlimited Revisions</li>
+                                <li>✨ Priority Support</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -807,18 +852,22 @@
                             <div class="card-header">
                                 <h3>Premium</h3>
                                 <div class="price">
-                                    <span class="original">$4,999</span>
-                                    <span class="new">$1,999</span>
+                                    <div class="original" data-save="SAVE 85%">$7,999</div>
+                                    <div class="new">$2,499</div>
                                 </div>
-                                <div class="setup-fee">$199/mo</div>
+                                <div class="setup-fee">$149/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Fully Custom Design</li>
-                                <li>Up to 10 Pages</li>
-                                <li>Advanced Interactivity</li>
-                                <li>Comprehensive SEO</li>
-                                <li>Advanced E-commerce</li>
-                                <li>CRM Integrations</li>
+                                <li>✨ Everything in Standard, plus:</li>
+                                <li>✨ Unlimited Pages</li>
+                                <li>✨ Custom Functionality</li>
+                                <li>✨ Advanced E-commerce</li>
+                                <li>✨ API Integrations</li>
+                                <li>✨ Performance Optimization</li>
+                                <li>✨ Advanced Analytics</li>
+                                <li>✨ Multi-language Support</li>
+                                <li>✨ 24/7 Priority Support</li>
+                                <li>✨ Monthly Strategy Call</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -832,16 +881,20 @@
                             <div class="card-header">
                                 <h3>Basic </h3>
                                 <div class="price">
-                                    <div class="original">$999</div>
-                                    <div class="new">$99</div>
+                                    <div class="original" data-save="SAVE 63%">$799</div>
+                                    <div class="new">$299</div>
                                 </div>
-                                <div class="setup-fee">$75/mo</div>
+                                <div class="setup-fee">$199/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Custom Design</li>
-                                <li>Up to 1 Page</li>
-                                <li>Responsive Design</li>
-                                <li>SEO Setup</li>
+                                <li>✨ 2 Platforms Management</li>
+                                <li>✨ 12 Posts per Month</li>
+                                <li>✨ Basic Content Strategy</li>
+                                <li>✨ Community Management</li>
+                                <li>✨ Monthly Analytics Report</li>
+                                <li>✨ Basic Graphics Design</li>
+                                <li>✨ Hashtag Research</li>
+                                <li>✨ Engagement Monitoring</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -850,17 +903,22 @@
                             <div class="card-header">
                                 <h3>Standard</h3>
                                 <div class="price">
-                                    <div class="original">$2,999</div>
-                                    <div class="new">$499</div>
+                                    <div class="original" data-save="SAVE 75%">$1,499</div>
+                                    <div class="new">$599</div>
                                 </div>
-                                <div class="setup-fee">$99/mo</div>
+                                <div class="setup-fee">$399/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Advanced Layouts</li>
-                                <li>Up to 5 Pages</li>
-                                <li>Enhanced CMS</li>
-                                <li>SEO Optimization</li>
-                                <li>Basic E-commerce</li>
+                                <li>✨ 4 Platforms Management</li>
+                                <li>✨ 20 Posts per Month</li>
+                                <li>✨ Advanced Content Strategy</li>
+                                <li>✨ Community Management</li>
+                                <li>✨ Weekly Analytics Reports</li>
+                                <li>✨ Custom Graphics Design</li>
+                                <li>✨ Competitor Analysis</li>
+                                <li>✨ Story/Reel Creation</li>
+                                <li>✨ Ad Campaign Setup</li>
+                                <li>✨ Social Media Audit</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -869,18 +927,22 @@
                             <div class="card-header">
                                 <h3>Premium</h3>
                                 <div class="price">
-                                    <div class="original">$4,999</div>
-                                    <div class="new">$1,999</div>
+                                    <div class="original" data-save="SAVE 87%">$2,999</div>
+                                    <div class="new">$999</div>
                                 </div>
-                                <div class="setup-fee">$199/mo</div>
+                                <div class="setup-fee">$799/mo</div>
                             </div>
                             <ul class="features-list">
-                                <li>Fully Custom Design</li>
-                                <li>Up to 10 Pages</li>
-                                <li>Advanced Interactivity</li>
-                                <li>Comprehensive SEO</li>
-                                <li>Advanced E-commerce</li>
-                                <li>CRM Integrations</li>
+                                <li>✨ All Platforms Management</li>
+                                <li>✨ 30 Posts per Month</li>
+                                <li>✨ Custom Content Strategy</li>
+                                <li>✨ Priority Support</li>
+                                <li>✨ Daily Engagement</li>
+                                <li>✨ Premium Graphics</li>
+                                <li>✨ Video Content Creation</li>
+                                <li>✨ Influencer Outreach</li>
+                                <li>✨ Advanced Ad Campaigns</li>
+                                <li>✨ Monthly Strategy Calls</li>
                             </ul>
                             <button class="pricing-btn" onclick="scrollToSection('contact')">Get Started</button>
                         </div>
@@ -993,7 +1055,7 @@
      
         <!-- Contact Section -->
         <section class="contact" id="contact">
-            <img src="assets/images/Handshake Icon.png" alt="Handshake Icon" class="contact-icon">
+            <img src="assets/images/Handshake Icon.png" alt="Handshake Icon" class="contact-icon" width="80" height="80" loading="lazy">
             <h2>Tell Us about Your<br>Next Project</h2>
             <div class="contact-buttons">
                 <a href="https://outlook.office365.com/book/LehighValleyDigital@Captiv8.global/s/00X_YSLpAEup8fkCCi1chA2" class="btn btn-primary" target="_blank">Book a Call</a>

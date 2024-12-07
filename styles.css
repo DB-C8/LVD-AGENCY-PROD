@@ -380,7 +380,7 @@ color: white;
     font-family: 'Glancyr';
     src: url('assets/fonts/Glancyr-Light.otf') format('opentype');
     font-weight: 300;
-    font-display: swap;  // Add this line
+    font-display: swap;
 }
 
 @font-face {
@@ -394,7 +394,7 @@ color: white;
     src: url('assets/fonts/Satoshi-Regular.woff2') format('woff2'),
          url('assets/fonts/Satoshi-Regular.woff') format('woff');
     font-weight: 400;
-    font-display: swap;  // Add this line 
+    font-display: swap;
 }
 
 @font-face {
@@ -409,34 +409,22 @@ color: white;
     position: relative;
     z-index: 3;
     background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
-    padding: 120px 10%;
+    padding: 80px 10% 120px; /* Reduced top padding from 120px to 80px */
     color: #050505;
     overflow: hidden;
 }
 
 .philosophy-header {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 60px; /* Reduced from 80px */
     position: relative;
 }
-
-/* .philosophy-header::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: #EC4524;
-    border-radius: 2px;
-} */
 
 .philosophy-header h2 {
     font-family: 'Glancyr', sans-serif;
     font-size: 3rem;
     font-weight: 300;
-    margin-bottom: 40px;  /* Increased spacing between headings */
+    margin-bottom: 30px; /* Reduced from 40px */
     background: linear-gradient(45deg, #050505, #333);
     -webkit-background-clip: text;
     background-clip: text;
@@ -654,30 +642,173 @@ color: white;
 @media (max-width: 768px) {
     .philosophy-timeline {
         flex-direction: column;
-        gap: 40px;
-        padding: 40px 0;
+        gap: 0;
+        padding: 40px 20px;
+        align-items: center;
+        position: relative;
     }
 
+    /* Main vertical line */
     .philosophy-timeline::before {
+        content: '';
+        position: absolute;
         width: 2px;
-        height: 100%;
-        left: 30px;
-        top: 0;
+        height: calc(100% - 160px);
+        left: 50%;
+        top: 80px;
+        transform: translateX(-50%);
         background: linear-gradient(180deg, 
             rgba(236, 69, 36, 0) 0%,
             rgba(236, 69, 36, 0.3) 50%,
             rgba(236, 69, 36, 0) 100%
         );
+        z-index: 1;
+    }
+
+    /* Connecting lines between items */
+    .timeline-item {
+        position: relative;
+    }
+
+    .timeline-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 80px; /* Match the margin-bottom */
+        background: rgba(236, 69, 36, 0.3);
+        left: 50%;
+        bottom: -80px;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+
+    /* Short connecting line between year and content */
+    .item-content {
+        position: relative;
+    }
+
+    .item-content::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 40px;
+        background: rgba(236, 69, 36, 0.3);
+        left: 50%;
+        top: -40px;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+
+    /* Active (last) item styling */
+    .timeline-item.active {
+        margin-bottom: 0;
+    }
+
+    .timeline-item.active .year {
+        background: #050505;
+        color: white;
+    }
+
+    .timeline-item.active .item-content {
+        background: rgba(236, 69, 36, 0.1);
+        border-color: rgba(236, 69, 36, 0.2);
+    }
+
+    .timeline-item.active .tech-item {
+        color: #EC4524;
+        font-weight: 600;
     }
 
     .timeline-item {
-        text-align: left;
-        padding-left: 60px;
-        align-items: flex-start;
+        text-align: center;
+        width: 100%;
+        max-width: 340px; /* Increased from 280px */
+        position: relative;
+        z-index: 2;
+        margin-bottom: 80px; /* Increased from 60px */
+        background: transparent;
+    }
+
+    /* Year styling */
+    .year {
+        background: #EC4524;
+        color: white;
+        padding: 12px 32px; /* Increased padding */
+        border-radius: 50px;
+        font-size: 1.2rem; /* Increased font size */
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 40px; /* Increased from 30px */
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(236, 69, 36, 0.2);
+    }
+
+    /* Content box styling */
+    .item-content {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px; /* Increased padding */
+        position: relative;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Tech item styling */
+    .tech-item {
+        font-size: 1.4rem; /* Increased from 1.2rem */
+        font-weight: 500;
+        margin: 15px 0; /* Increased margin */
+        color: #050505;
+    }
+
+    /* Price tag styling */
+    .price-tag {
+        color: #EC4524;
+        font-size: 1.1rem; /* Increased from 0.9rem */
+        font-weight: 500;
+        margin-top: 10px; /* Added margin */
+    }
+
+    /* Icons before tech items */
+    .timeline-item .tech-item::before {
+        margin: 0 auto 20px; /* Increased bottom margin */
+        padding: 20px; /* Increased padding */
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px; /* Increased from 60px */
+        height: 80px; /* Increased from 60px */
+        font-size: 2.5rem; /* Increased from 2rem */
+    }
+}
+
+/* Adjust for smaller screens while keeping elements large */
+@media (max-width: 480px) {
+    .timeline-item {
+        max-width: 300px; /* Slightly smaller but still larger than original */
     }
 
     .year {
-        margin-bottom: 20px;
+        font-size: 1.1rem;
+        padding: 10px 28px;
+    }
+
+    .tech-item {
+        font-size: 1.3rem;
+    }
+
+    .price-tag {
+        font-size: 1rem;
+    }
+
+    .timeline-item .tech-item::before {
+        width: 70px; /* Slightly smaller but still larger than original */
+        height: 70px;
+        font-size: 2.2rem;
     }
 }
 
@@ -1076,49 +1207,53 @@ color: white;
 .faq-item {
     margin-bottom: 15px;
     border-radius: 20px;
-    background: rgba(5, 5, 5, 0.02);  /* Very light gray background */
+    background: rgba(5, 5, 5, 0.02);
     transition: background-color 0.3s ease;
-}
-
-.faq-item:hover {
-    background: rgba(255, 84, 22, 0.05);
 }
 
 .faq-question {
     padding: 25px 30px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align to top for multi-line questions */
     cursor: pointer;
-    color: #050505;  /* Dark text */
+    color: #050505;
 }
 
 .faq-question span {
     font-size: 1.1rem;
     font-weight: 400;
     flex: 1;
+    padding-right: 20px; /* Space between text and icon */
+    line-height: 1.4; /* Consistent line height */
 }
 
 .faq-icon {
-    color: #EC4524;  /* Keeping the orange accent */
+    color: #EC4524;
     font-size: 1.5rem;
-    margin-left: 20px;
+    min-width: 20px; /* Prevent icon from shrinking */
+    text-align: center;
     transition: transform 0.3s ease;
+    margin-top: -2px; /* Align with first line of text */
 }
 
 .faq-answer {
     max-height: 0;
     overflow: hidden;
     transition: all 0.3s ease;
-    padding: 0 30px;
 }
 
 .faq-answer p {
-    color: rgba(5, 5, 5, 0.7);  /* Dark text with opacity */
+    color: rgba(5, 5, 5, 0.7);
     line-height: 1.6;
-    text-align: justify;
-    font-size: 0.9rem;
-    padding-bottom: 25px;
+    font-size: 0.95rem;
+    padding: 0 30px 25px;
+    margin: 0;
+}
+
+/* Tech stack specific styling in FAQ */
+.tech-stack {
+    padding: 0 30px 25px;
     margin: 0;
 }
 
@@ -1131,7 +1266,28 @@ color: white;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 1000px;
+    max-height: 2000px; /* Large enough to accommodate content */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .faq-question {
+        padding: 20px 25px;
+    }
+
+    .faq-question span {
+        font-size: 1rem;
+        padding-right: 15px;
+    }
+
+    .faq-answer p {
+        padding: 0 25px 20px;
+        font-size: 0.9rem;
+    }
+
+    .tech-stack {
+        padding: 0 25px 20px;
+    }
 }
 
 /* Responsive Adjustments */
@@ -1608,7 +1764,7 @@ html {
 
 /* Save Tag Styling */
 .price .original::before {
-    content: 'SAVE 50%';
+    content: attr(data-save); /* Change to use data attribute */
     position: absolute;
     top: -25px;
     right: -40px;
@@ -2370,11 +2526,11 @@ h2 span.highlight {
 /* Philosophy Section Mobile Adjustments */
 @media (max-width: 768px) {
     .philosophy {
-        padding: 60px 5%;  /* Reduced padding */
+        padding: 60px 5% 100px; /* Reduced padding for mobile */
     }
 
     .philosophy-header {
-        margin-bottom: 40px;  /* Reduced margin */
+        margin-bottom: 40px; /* Further reduced margin for mobile */
     }
 
     .philosophy-header h2 {
@@ -3001,6 +3157,91 @@ h2 span.highlight {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* Update all section headers to match */
+.features-header h2,
+.philosophy-header h2,
+.pricing-header h2,
+.faq-header h2,
+.difference h2,
+.difference-header h2 {
+    font-family: 'Glancyr', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);  /* Match the difference section size */
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+/* Ensure consistent spacing */
+.features-header,
+.philosophy-header,
+.pricing-header,
+.faq-header,
+.difference-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* Ensure highlight spans are consistent */
+.features-header h2 span.highlight,
+.philosophy-header h2 span.highlight,
+.pricing-header h2 span.highlight,
+.faq-header h2 span.highlight,
+.difference h2 span.highlight {
+    color: #EC4524;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .features-header h2,
+    .philosophy-header h2,
+    .pricing-header h2,
+    .faq-header h2,
+    .difference h2,
+    .difference-header h2 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+}
+
+/* Loading Screen Styles - Mobile Specific */
+@media (max-width: 768px) {
+    .loading-text {
+        font-size: clamp(2.5rem, 12vw, 4.5rem); /* Increased from 8vw */
+        animation-duration: 0.8s; /* Slightly slower animation */
+    }
+
+    .loading-bar {
+        width: min(280px, 80vw); /* Increased from 200px/60vw */
+        height: 6px; /* Increased from 4px */
+        margin-top: 30px; /* Increased from 20px */
+    }
+
+    .loading-text.go-digital {
+        margin-bottom: 10px; /* Add space between texts */
+    }
+
+    .loading-text.stay-visible {
+        margin-bottom: 20px; /* Add space before loading bar */
+    }
+
+    /* Ensure loading screen takes full height on mobile */
+    .loading-screen {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+    .loading-text {
+        font-size: clamp(2.2rem, 10vw, 4rem);
     }
 }
 
