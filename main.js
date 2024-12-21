@@ -124,6 +124,14 @@ document.addEventListener('DOMContentLoaded', function() {
             switchTab(this.dataset.tab);
         });
     });
+
+    // Find all orange prices
+    const orangePrices = document.querySelectorAll('.orange-price');
+    
+    // Remove "/mo" from each orange price
+    orangePrices.forEach(price => {
+        price.textContent = price.textContent.replace('/mo', '');
+    });
 });
 
 // Handle refresh and back/forward navigation
@@ -459,6 +467,63 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         }, 250);
+    });
+});
+
+// Update the pricing tab initialization and handling
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const pricingTabs = document.querySelectorAll('.pricing-tab');
+
+    // Function to show a specific tab
+    function showTab(tabId) {
+        // Hide all tabs
+        pricingTabs.forEach(tab => {
+            tab.style.opacity = '0';
+            tab.style.display = 'none';
+            tab.classList.remove('active');
+        });
+
+        // Show selected tab
+        const selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            selectedTab.style.display = 'block';
+            selectedTab.classList.add('active');
+            // Force reflow
+            void selectedTab.offsetWidth;
+            selectedTab.style.opacity = '1';
+        }
+
+        // Update button states
+        tabBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.tab === tabId);
+        });
+    }
+
+    // Get the active tab from URL or sessionStorage, default to 'websites'
+    let activeTab = 'websites';
+    const storedTab = sessionStorage.getItem('activeTab');
+    if (storedTab) {
+        activeTab = storedTab;
+    }
+
+    // Show the active tab
+    showTab(activeTab);
+
+    // Add click handlers to tab buttons
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            showTab(tabId);
+            // Store the active tab
+            sessionStorage.setItem('activeTab', tabId);
+        });
+    });
+
+    // Handle page refresh and back/forward navigation
+    window.addEventListener('pageshow', function(event) {
+        const storedTab = sessionStorage.getItem('activeTab') || 'websites';
+        showTab(storedTab);
     });
 });
 
